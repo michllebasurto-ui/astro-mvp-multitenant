@@ -1,0 +1,32 @@
+---
+import type { TenantConfig } from '../../lib/tenant';
+
+interface Props {
+  config: TenantConfig;
+  tenantSlug?: string;
+  useQueryParam?: boolean;
+}
+
+const { config, tenantSlug, useQueryParam = false } = Astro.props;
+
+function buildLink(href: string): string {
+  if (useQueryParam && tenantSlug) {
+    return href === '/' ? `/?tenant=${tenantSlug}` : `${href}?tenant=${tenantSlug}`;
+  }
+  return href;
+}
+---
+<footer class="bg-gray-900 text-gray-300 py-8 mt-auto">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+      <p class="text-sm text-center md:text-left">{config.footer.text}</p>
+      <div class="flex gap-4">
+        {config.footer.links.map((link) => (
+          <a href={buildLink(link.href)} class="text-sm text-gray-400 hover:text-white transition-colors">
+            {link.label}
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</footer>

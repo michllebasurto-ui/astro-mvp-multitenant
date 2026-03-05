@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import Navbar from '../../../_shared/Navbar.astro';
+import Footer from '../../../_shared/Footer.astro';
+import WhatsAppButton from '../../../_shared/WhatsAppButton.astro';
+import type { TenantData, PageData } from '../../../../lib/tenant';
+
+interface Props {
+  tenant: TenantData;
+  pageData: PageData;
+  request: Request;
+}
+
+const { tenant, pageData, request } = Astro.props;
+const url = new URL(request.url);
+const useQueryParam = url.searchParams.has('tenant');
+const tenantSlug = url.searchParams.get('tenant') || '';
+const content = pageData.content as any;
+---
+<BaseLayout title={pageData.meta.title} description={pageData.meta.description}>
+  <div class="min-h-screen flex flex-col bg-amber-50">
+    <Navbar config={tenant.config} currentPath="/sucursales" tenantSlug={tenantSlug} useQueryParam={useQueryParam} />
+
+    <main class="flex-1 py-16">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h1 class="text-4xl font-black text-gray-900 mb-2">📍 Nuestras Sucursales</h1>
+          <p class="text-gray-600">Encuéntranos de martes a domingo. ¡El sabor de siempre te espera!</p>
+        </div>
+        <div class="space-y-6">
+          {content.locations?.map((loc: any) => (
+            <div class="bg-white rounded-2xl p-8 shadow-md border-l-4 border-green-500 hover:shadow-lg transition-shadow">
+              <div class="flex items-start gap-4">
+                <div class="text-4xl">{loc.emoji}</div>
+                <div class="flex-1">
+                  <h3 class="text-xl font-black text-gray-900 mb-3">{loc.name}</h3>
+                  <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm">
+                    <div class="flex items-start gap-2">
+                      <span class="text-lg">📍</span>
+                      <p class="text-gray-600">{loc.address}</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="text-lg">📞</span>
+                      <p class="text-gray-600">{loc.phone}</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="text-lg">🕐</span>
+                      <p class="text-gray-600">{loc.hours}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </main>
+
+    <Footer config={tenant.config} tenantSlug={tenantSlug} useQueryParam={useQueryParam} />
+    <WhatsAppButton phone={tenant.config.whatsapp} />
+  </div>
+</BaseLayout>

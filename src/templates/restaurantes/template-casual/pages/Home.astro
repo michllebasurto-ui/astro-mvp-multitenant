@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import Navbar from '../../../_shared/Navbar.astro';
+import Footer from '../../../_shared/Footer.astro';
+import WhatsAppButton from '../../../_shared/WhatsAppButton.astro';
+import Promos from '../components/Promos.astro';
+import type { TenantData, PageData } from '../../../../lib/tenant';
+
+interface Props {
+  tenant: TenantData;
+  pageData: PageData;
+  request: Request;
+}
+
+const { tenant, pageData, request } = Astro.props;
+const url = new URL(request.url);
+const useQueryParam = url.searchParams.has('tenant');
+const tenantSlug = url.searchParams.get('tenant') || '';
+const content = pageData.content as any;
+---
+<BaseLayout title={pageData.meta.title} description={pageData.meta.description}>
+  <div class="min-h-screen flex flex-col bg-orange-50">
+    <Navbar config={tenant.config} currentPath="/" tenantSlug={tenantSlug} useQueryParam={useQueryParam} />
+
+    <!-- Hero -->
+    <section class="bg-gradient-to-r from-orange-500 to-yellow-400 py-20">
+      <div class="max-w-4xl mx-auto px-4 text-center">
+        <h1 class="text-5xl md:text-6xl font-black text-white mb-4 drop-shadow-lg">{content.hero?.headline}</h1>
+        <p class="text-xl text-white/90 mb-8 font-semibold">{content.hero?.subheadline}</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a
+            href={useQueryParam ? `/menu?tenant=${tenantSlug}` : '/menu'}
+            class="bg-white text-orange-600 font-black py-4 px-10 rounded-full hover:bg-orange-50 transition-all hover:scale-105 shadow-lg text-lg"
+          >
+            {content.hero?.cta}
+          </a>
+          <a
+            href={useQueryParam ? `/delivery?tenant=${tenantSlug}` : '/delivery'}
+            class="border-2 border-white text-white font-black py-4 px-10 rounded-full hover:bg-white/20 transition-all text-lg"
+          >
+            Pedir a Domicilio 🚀
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Promos -->
+    {content.promos && (
+      <section class="py-16">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 class="text-3xl font-black text-gray-900 text-center mb-8">🔥 Promociones del Mes</h2>
+          <Promos promos={content.promos} />
+        </div>
+      </section>
+    )}
+
+    <!-- CTA Delivery -->
+    <section class="py-12 bg-orange-500 text-white text-center">
+      <div class="max-w-2xl mx-auto px-4">
+        <h2 class="text-3xl font-black mb-4">¿Antojo a domicilio? 🛵</h2>
+        <p class="text-orange-100 mb-6">Entregamos en 30-45 minutos a toda la zona.</p>
+        <a
+          href={useQueryParam ? `/delivery?tenant=${tenantSlug}` : '/delivery'}
+          class="bg-white text-orange-600 font-black py-3 px-8 rounded-full hover:bg-orange-50 transition-colors"
+        >
+          Ver Apps de Delivery
+        </a>
+      </div>
+    </section>
+
+    <Footer config={tenant.config} tenantSlug={tenantSlug} useQueryParam={useQueryParam} />
+    <WhatsAppButton phone={tenant.config.whatsapp} />
+  </div>
+</BaseLayout>

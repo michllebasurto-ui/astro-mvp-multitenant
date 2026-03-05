@@ -1,0 +1,41 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import Navbar from '../../../_shared/Navbar.astro';
+import Footer from '../../../_shared/Footer.astro';
+import WhatsAppButton from '../../../_shared/WhatsAppButton.astro';
+import MenuSection from '../components/MenuSection.astro';
+import type { TenantData, PageData } from '../../../../lib/tenant';
+
+interface Props {
+  tenant: TenantData;
+  pageData: PageData;
+  request: Request;
+}
+
+const { tenant, pageData, request } = Astro.props;
+const url = new URL(request.url);
+const useQueryParam = url.searchParams.has('tenant');
+const tenantSlug = url.searchParams.get('tenant') || '';
+const content = pageData.content as any;
+---
+<BaseLayout title={pageData.meta.title} description={pageData.meta.description}>
+  <div class="min-h-screen flex flex-col bg-amber-50">
+    <Navbar config={tenant.config} currentPath="/menu" tenantSlug={tenantSlug} useQueryParam={useQueryParam} />
+
+    <main class="flex-1 py-16">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h1 class="text-4xl font-serif font-bold text-amber-900 mb-4">Nuestra Carta</h1>
+          <div class="w-20 h-1 bg-amber-600 mx-auto rounded"></div>
+          <p class="mt-4 text-gray-600 font-serif italic">Ingredientes frescos, sabores auténticos</p>
+        </div>
+        {content.categories && (
+          <MenuSection categories={content.categories} primaryColor={tenant.config.primaryColor} />
+        )}
+      </div>
+    </main>
+
+    <Footer config={tenant.config} tenantSlug={tenantSlug} useQueryParam={useQueryParam} />
+    <WhatsAppButton phone={tenant.config.whatsapp} />
+  </div>
+</BaseLayout>

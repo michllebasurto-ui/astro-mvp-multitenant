@@ -1,0 +1,27 @@
+---
+interface Props {
+  images?: Array<{ src: string; alt: string }>;
+  primaryColor?: string;
+}
+const defaultImages = [
+  { src: 'https://images.unsplash.com/photo-1551183053-bf91798d792c?w=600&q=80', alt: 'Pasta fresca' },
+  { src: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&q=80', alt: 'Pizza al horno' },
+  { src: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80', alt: 'Interior del restaurante' },
+  { src: 'https://images.unsplash.com/photo-1600891964092-4316c288032e?w=600&q=80', alt: 'Plato gourmet' },
+  { src: 'https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=600&q=80', alt: 'Mesa elegante' },
+  { src: 'https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=600&q=80', alt: 'Vinos' },
+];
+const { images = defaultImages, primaryColor = '#b45309' } = Astro.props;
+---
+<div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+  {images.map((img) => (
+    <div class="aspect-square overflow-hidden rounded-xl group cursor-pointer">
+      <img
+        src={img.src}
+        alt={img.alt}
+        loading="lazy"
+        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+      />
+    </div>
+  ))}
+</div>

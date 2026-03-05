@@ -1,0 +1,36 @@
+---
+interface MenuItem {
+  name: string;
+  description: string;
+  price: string;
+}
+interface Category {
+  name: string;
+  items: MenuItem[];
+}
+interface Props {
+  categories: Category[];
+  primaryColor?: string;
+}
+const { categories, primaryColor = '#b45309' } = Astro.props;
+---
+<div class="space-y-12">
+  {categories.map((cat) => (
+    <div>
+      <h3 class="text-2xl font-serif font-bold mb-6 pb-2 border-b-2" style={`color: ${primaryColor}; border-color: ${primaryColor}`}>
+        {cat.name}
+      </h3>
+      <div class="space-y-4">
+        {cat.items.map((item) => (
+          <div class="flex justify-between items-start gap-4 py-3 border-b border-amber-100 last:border-0">
+            <div>
+              <h4 class="font-semibold text-gray-900 text-lg">{item.name}</h4>
+              <p class="text-gray-500 text-sm mt-1">{item.description}</p>
+            </div>
+            <span class="font-bold text-lg whitespace-nowrap" style={`color: ${primaryColor}`}>{item.price}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  ))}
+</div>

@@ -1,0 +1,32 @@
+---
+interface Props {
+  headline: string;
+  subheadline: string;
+  cta: string;
+  ctaHref?: string;
+}
+const { headline, subheadline, cta, ctaHref = '/sucursales' } = Astro.props;
+---
+<section class="relative bg-gradient-to-br from-green-800 via-green-700 to-red-700 overflow-hidden py-20">
+  <!-- Decorative elements -->
+  <div class="absolute top-0 left-0 w-full h-full opacity-10">
+    <div class="absolute top-10 left-10 text-9xl rotate-12">🌮</div>
+    <div class="absolute bottom-10 right-10 text-9xl -rotate-12">🌶️</div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[20rem] opacity-5">🇲🇽</div>
+  </div>
+  <div class="relative z-10 max-w-4xl mx-auto px-4 text-center">
+    <div class="inline-flex items-center gap-2 bg-red-600 text-white text-sm font-bold px-4 py-2 rounded-full mb-6">
+      🌮 Desde 1985 · Tradición Auténtica
+    </div>
+    <h1 class="text-5xl md:text-7xl font-black text-white mb-6 leading-tight drop-shadow-2xl">
+      {headline}
+    </h1>
+    <p class="text-xl text-green-100 mb-8 font-semibold">{subheadline}</p>
+    <a
+      href={ctaHref}
+      class="inline-block bg-red-600 hover:bg-red-700 text-white font-black py-4 px-10 rounded-full text-lg transition-all hover:scale-105 shadow-2xl"
+    >
+      {cta} 📍
+    </a>
+  </div>
+</section>

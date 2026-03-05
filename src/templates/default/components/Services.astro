@@ -1,0 +1,36 @@
+---
+interface Service {
+  icon: string;
+  title: string;
+  description: string;
+}
+interface Props {
+  services?: Service[];
+}
+const defaultServices: Service[] = [
+  { icon: "🎨", title: "Diseño Web", description: "Interfaces modernas y atractivas que convierten visitantes en clientes." },
+  { icon: "⚡", title: "Desarrollo Rápido", description: "Sitios rápidos con Astro 5 y las últimas tecnologías frontend." },
+  { icon: "📱", title: "Multi-Tenant", description: "Un solo sistema, múltiples clientes con identidad propia." },
+  { icon: "🔍", title: "SEO Optimizado", description: "Páginas optimizadas para motores de búsqueda desde el inicio." },
+  { icon: "🚀", title: "Despliegue Fácil", description: "Configuración lista para producción con SSR y Node.js." },
+  { icon: "🎯", title: "Personalización Total", description: "Templates únicos por industria adaptados a cada cliente." },
+];
+const { services = defaultServices } = Astro.props;
+---
+<section id="services" class="py-24 bg-gray-50">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-bold text-gray-900 mb-4">Nuestros Servicios</h2>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto">Todo lo que necesitas para llevar tu negocio al siguiente nivel digital.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {services.map((service) => (
+        <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow duration-300 group">
+          <div class="text-4xl mb-4">{service.icon}</div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-purple-600 transition-colors">{service.title}</h3>
+          <p class="text-gray-600 leading-relaxed">{service.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
