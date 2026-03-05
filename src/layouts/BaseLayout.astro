@@ -4,9 +4,20 @@ import "../styles/global.css";
 interface Props {
   title: string;
   description?: string;
+  canonical?: string;
+  ogImage?: string;
+  noindex?: boolean;
 }
 
-const { title, description } = Astro.props;
+const {
+  title,
+  description = "",
+  canonical,
+  ogImage,
+  noindex = false,
+} = Astro.props;
+
+const currentUrl = canonical || Astro.url.href;
 ---
 
 <!doctype html>
@@ -17,6 +28,25 @@ const { title, description } = Astro.props;
     <meta name="description" content={description} />
     <title>{title}</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    {/* SEO: Canonical URL */}
+    <link rel="canonical" href={currentUrl} />
+
+    {/* SEO: Robots */}
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    {/* Open Graph (Facebook, WhatsApp, LinkedIn) */}
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={currentUrl} />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+
+    {/* Twitter Card */}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {ogImage && <meta name="twitter:image" content={ogImage} />}
   </head>
   <body>
     <slot />

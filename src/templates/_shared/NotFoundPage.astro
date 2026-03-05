@@ -30,7 +30,7 @@ const title = hasTenant
   : "Página no encontrada";
 ---
 
-<BaseLayout title={title} description="La página que buscas no existe.">
+<BaseLayout title={title} description="La página que buscas no existe." noindex={true}>
   <div class="min-h-screen flex flex-col">
     {/* Si hay tenant → mostrar su navbar */}
     {

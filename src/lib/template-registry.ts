@@ -1,35 +1,38 @@
-const TEMPLATE_REGISTRY: Record<string, Record<string, () => Promise<any>>> = {
-  "restaurantes/template-elegante": {
-    Home: () =>
-      import("../templates/restaurantes/template-elegante/pages/Home.astro"),
-    Menu: () =>
-      import("../templates/restaurantes/template-elegante/pages/Menu.astro"),
-    Contact: () =>
-      import("../templates/restaurantes/template-elegante/pages/Contact.astro"),
-  },
-  "restaurantes/template-casual": {
-    Home: () =>
-      import("../templates/restaurantes/template-casual/pages/Home.astro"),
-    Menu: () =>
-      import("../templates/restaurantes/template-casual/pages/Menu.astro"),
-    Delivery: () =>
-      import("../templates/restaurantes/template-casual/pages/Delivery.astro"),
-  },
-  "contadores/template-profesional": {
-    Home: () =>
-      import("../templates/contadores/template-profesional/pages/Home.astro"),
-    Services: () =>
-      import("../templates/contadores/template-profesional/pages/Services.astro"),
-    Contact: () =>
-      import("../templates/contadores/template-profesional/pages/Contact.astro"),
-  },
-  "customs/tacos-don-pepe": {
-    Home: () => import("../templates/customs/tacos-don-pepe/pages/Home.astro"),
-    Sucursales: () =>
-      import("../templates/customs/tacos-don-pepe/pages/Sucursales.astro"),
-  },
-};
+// ═══════════════════════════════════════════════════════════════
+// AUTO-DISCOVERY: Templates are discovered automatically via
+// import.meta.glob(). No need to register new templates manually.
+// Just create files under src/templates/{category}/{template}/pages/
+// and they will be available immediately.
+// ═══════════════════════════════════════════════════════════════
 
+const templateModules = import.meta.glob<any>(
+  "../templates/**/pages/*.astro",
+);
+
+// Build registry automatically from discovered modules
+// Excludes _shared and default directories (they are not tenant templates)
+const TEMPLATE_REGISTRY = new Map<string, Map<string, () => Promise<any>>>();
+
+for (const [path, loader] of Object.entries(templateModules)) {
+  // path example: "../templates/restaurantes/template-elegante/pages/Home.astro"
+  // We want: templatePath = "restaurantes/template-elegante", pageName = "Home"
+  const match = path.match(
+    /\.\.\/templates\/(.+)\/pages\/(\w+)\.astro$/,
+  );
+  if (!match) continue;
+
+  const [, templatePath, pageName] = match;
+
+  // Skip _shared and default folders — they are not tenant templates
+  if (templatePath.startsWith("_shared") || templatePath.startsWith("default")) continue;
+
+  if (!TEMPLATE_REGISTRY.has(templatePath)) {
+    TEMPLATE_REGISTRY.set(templatePath, new Map());
+  }
+  TEMPLATE_REGISTRY.get(templatePath)!.set(pageName, loader);
+}
+
+// Cache for already-loaded components (permanent — components don't change at runtime)
 const componentCache = new Map<string, any>();
 
 export async function getTemplateComponent(
@@ -37,13 +40,17 @@ export async function getTemplateComponent(
   pageName: string,
 ): Promise<any | null> {
   const cacheKey = `${templatePath}/${pageName}`;
+
   if (componentCache.has(cacheKey)) {
     return componentCache.get(cacheKey);
   }
-  const template = TEMPLATE_REGISTRY[templatePath];
+
+  const template = TEMPLATE_REGISTRY.get(templatePath);
   if (!template) return null;
-  const loader = template[pageName];
+
+  const loader = template.get(pageName);
   if (!loader) return null;
+
   const module = await loader();
   const component = module.default;
   componentCache.set(cacheKey, component);
@@ -54,5 +61,5 @@ export function templateExists(
   templatePath: string,
   pageName: string,
 ): boolean {
-  return !!TEMPLATE_REGISTRY[templatePath]?.[pageName];
+  return !!TEMPLATE_REGISTRY.get(templatePath)?.has(pageName);
 }

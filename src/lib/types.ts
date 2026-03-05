@@ -22,6 +22,7 @@ export interface PageData {
   meta: {
     title: string;
     description: string;
+    ogImage?: string;
   };
   content: Record<string, any>;
 }
