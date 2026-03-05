@@ -19,5 +19,16 @@ const { title, description = 'Landing page' } = Astro.props;
   </head>
   <body>
     <slot />
+    <script>
+      // Prevent default form submission for all forms (MVP demo — no backend integration)
+      document.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const form = e.target as HTMLFormElement;
+        form.querySelectorAll('input, textarea, select').forEach((el) => {
+          (el as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement).value = '';
+        });
+        alert('¡Mensaje enviado! Nos pondremos en contacto contigo pronto.');
+      });
+    </script>
   </body>
 </html>
