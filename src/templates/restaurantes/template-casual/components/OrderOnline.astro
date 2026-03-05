@@ -1,0 +1,25 @@
+---
+interface DeliveryApp {
+  name: string;
+  url: string;
+  color: string;
+  emoji: string;
+}
+interface Props {
+  apps: DeliveryApp[];
+}
+const { apps } = Astro.props;
+---
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+  {apps.map((app) => (
+    <a
+      href={app.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      class={`${app.color} text-white rounded-2xl p-6 text-center font-bold text-lg hover:opacity-90 transition-opacity flex flex-col items-center gap-3 shadow-md`}
+    >
+      <span class="text-4xl">{app.emoji}</span>
+      <span>Pedir en {app.name}</span>
+    </a>
+  ))}
+</div>

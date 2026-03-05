@@ -1,0 +1,103 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import Navbar from '../../../_shared/Navbar.astro';
+import Footer from '../../../_shared/Footer.astro';
+import WhatsAppButton from '../../../_shared/WhatsAppButton.astro';
+import FAQ from '../components/FAQ.astro';
+import type { TenantData, PageData } from '../../../../lib/tenant';
+
+interface Props {
+  tenant: TenantData;
+  pageData: PageData;
+  request: Request;
+}
+
+const { tenant, pageData, request } = Astro.props;
+const url = new URL(request.url);
+const useQueryParam = url.searchParams.has('tenant');
+const tenantSlug = url.searchParams.get('tenant') || '';
+const content = pageData.content as any;
+---
+<BaseLayout title={pageData.meta.title} description={pageData.meta.description}>
+  <div class="min-h-screen flex flex-col bg-slate-50">
+    <Navbar config={tenant.config} currentPath="/contact" tenantSlug={tenantSlug} useQueryParam={useQueryParam} />
+
+    <main class="flex-1 py-16">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h1 class="text-4xl font-bold text-gray-900 text-center mb-12">Contacto</h1>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-16">
+          <!-- Info -->
+          <div class="space-y-6">
+            <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-200">
+              <h3 class="text-xl font-bold text-gray-900 mb-6">Información de Contacto</h3>
+              <div class="space-y-4">
+                <div class="flex items-start gap-3">
+                  <span class="text-2xl">📍</span>
+                  <div><p class="text-sm text-gray-500">Oficina</p><p class="text-gray-800 font-medium">{content.address}</p></div>
+                </div>
+                <div class="flex items-start gap-3">
+                  <span class="text-2xl">📞</span>
+                  <div><p class="text-sm text-gray-500">Teléfono</p><p class="text-gray-800 font-medium">{content.phone}</p></div>
+                </div>
+                <div class="flex items-start gap-3">
+                  <span class="text-2xl">✉️</span>
+                  <div><p class="text-sm text-gray-500">Email</p><p class="text-gray-800 font-medium">{content.email}</p></div>
+                </div>
+              </div>
+            </div>
+            <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-200">
+              <h3 class="text-xl font-bold text-gray-900 mb-4">Horario de Atención</h3>
+              <div class="space-y-3">
+                {content.hours?.map((h: any) => (
+                  <div class="flex justify-between items-center py-2 border-b border-gray-50 last:border-0">
+                    <span class="text-gray-600">{h.days}</span>
+                    <span class="font-medium text-blue-800">{h.time}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          <!-- Contact Form -->
+          <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-200">
+            <h3 class="text-xl font-bold text-gray-900 mb-6">Agendar Consulta</h3>
+            <form class="space-y-4">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Nombre completo</label>
+                <input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-blue-500" placeholder="Tu nombre" />
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                <input type="email" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-blue-500" placeholder="tu@empresa.com" />
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Tipo de servicio</label>
+                <select class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-blue-500 bg-white">
+                  <option>Persona Física</option>
+                  <option>Empresa (Persona Moral)</option>
+                  <option>Constitución de Empresa</option>
+                  <option>Otro</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Mensaje</label>
+                <textarea rows="4" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-blue-500 resize-none" placeholder="Cuéntanos tu situación..."></textarea>
+              </div>
+              <button type="submit" class="w-full bg-blue-800 text-white font-bold py-3 rounded-lg hover:bg-blue-900 transition-colors">
+                Solicitar Consulta Gratuita
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- FAQ -->
+        <div>
+          <h2 class="text-3xl font-bold text-gray-900 text-center mb-8">Preguntas Frecuentes</h2>
+          <FAQ />
+        </div>
+      </div>
+    </main>
+
+    <Footer config={tenant.config} tenantSlug={tenantSlug} useQueryParam={useQueryParam} />
+    <WhatsAppButton phone={tenant.config.whatsapp} />
+  </div>
+</BaseLayout>

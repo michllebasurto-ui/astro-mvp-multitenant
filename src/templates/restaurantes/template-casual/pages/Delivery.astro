@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import Navbar from '../../../_shared/Navbar.astro';
+import Footer from '../../../_shared/Footer.astro';
+import WhatsAppButton from '../../../_shared/WhatsAppButton.astro';
+import OrderOnline from '../components/OrderOnline.astro';
+import type { TenantData, PageData } from '../../../../lib/tenant';
+
+interface Props {
+  tenant: TenantData;
+  pageData: PageData;
+  request: Request;
+}
+
+const { tenant, pageData, request } = Astro.props;
+const url = new URL(request.url);
+const useQueryParam = url.searchParams.has('tenant');
+const tenantSlug = url.searchParams.get('tenant') || '';
+const content = pageData.content as any;
+---
+<BaseLayout title={pageData.meta.title} description={pageData.meta.description}>
+  <div class="min-h-screen flex flex-col bg-orange-50">
+    <Navbar config={tenant.config} currentPath="/delivery" tenantSlug={tenantSlug} useQueryParam={useQueryParam} />
+
+    <main class="flex-1 py-16">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h1 class="text-4xl font-black text-gray-900 mb-2">🚀 Delivery</h1>
+          <p class="text-gray-600">Pide desde tu app favorita y te lo llevamos en 30-45 minutos</p>
+        </div>
+
+        {content.apps && (
+          <div class="mb-12">
+            <h2 class="text-2xl font-black text-gray-800 mb-6 text-center">Pide por estas apps</h2>
+            <OrderOnline apps={content.apps} />
+          </div>
+        )}
+
+        {content.zones && (
+          <div class="bg-white rounded-2xl p-8 shadow-md">
+            <h2 class="text-2xl font-black text-gray-800 mb-4">📍 Zonas de Cobertura</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+              {content.zones.map((zone: string) => (
+                <div class="bg-orange-50 border border-orange-200 rounded-xl px-4 py-3 text-center text-orange-700 font-semibold">
+                  {zone}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </main>
+
+    <Footer config={tenant.config} tenantSlug={tenantSlug} useQueryParam={useQueryParam} />
+    <WhatsAppButton phone={tenant.config.whatsapp} />
+  </div>
+</BaseLayout>

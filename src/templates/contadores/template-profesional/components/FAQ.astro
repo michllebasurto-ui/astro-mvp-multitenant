@@ -1,0 +1,29 @@
+---
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+interface Props {
+  items?: FAQItem[];
+}
+const defaultFAQs: FAQItem[] = [
+  { question: "¿Cuánto tiempo tarda en estar lista mi contabilidad mensual?", answer: "La entrega de estados financieros se realiza dentro de los primeros 5 días hábiles del mes siguiente." },
+  { question: "¿Pueden manejar empresas con múltiples RFC?", answer: "Sí, contamos con experiencia en grupos empresariales y personas físicas con múltiples actividades económicas." },
+  { question: "¿Qué pasa si el SAT me manda un requerimiento?", answer: "Nos encargamos de atenderlo por completo. Incluye revisión, preparación de respuesta y seguimiento hasta su resolución." },
+  { question: "¿Hacen declaraciones complementarias?", answer: "Sí, podemos preparar y presentar declaraciones complementarias cuando sea necesario corregir información." },
+];
+const { items = defaultFAQs } = Astro.props;
+---
+<div class="space-y-4">
+  {items.map((faq) => (
+    <details class="group bg-white rounded-xl border border-gray-200 overflow-hidden">
+      <summary class="flex items-center justify-between p-6 cursor-pointer font-semibold text-gray-900 hover:bg-gray-50">
+        {faq.question}
+        <span class="text-blue-600 ml-4 transition-transform group-open:rotate-180">▼</span>
+      </summary>
+      <div class="px-6 pb-6 text-gray-600 border-t border-gray-100 pt-4">
+        {faq.answer}
+      </div>
+    </details>
+  ))}
+</div>

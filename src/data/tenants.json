@@ -1,0 +1,352 @@
+{
+  "la-bella-italia": {
+    "subdomain": "labellaitalia",
+    "template": "restaurantes/template-elegante",
+    "config": {
+      "brandName": "La Bella Italia",
+      "logo": "",
+      "primaryColor": "#b45309",
+      "whatsapp": "5215512345678",
+      "navbar": {
+        "links": [
+          { "label": "Inicio", "href": "/" },
+          { "label": "Menú", "href": "/menu" },
+          { "label": "Contacto", "href": "/contact" }
+        ]
+      },
+      "footer": {
+        "text": "© 2025 La Bella Italia. Todos los derechos reservados.",
+        "links": [
+          { "label": "Privacidad", "href": "#" }
+        ]
+      }
+    },
+    "pages": {
+      "/": {
+        "page": "Home",
+        "meta": {
+          "title": "La Bella Italia - Restaurante Italiano",
+          "description": "Auténtica cocina italiana en el corazón de la ciudad."
+        },
+        "content": {
+          "hero": {
+            "headline": "Auténtica Cocina Italiana",
+            "subheadline": "Una experiencia gastronómica inigualable",
+            "backgroundImage": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600&q=80",
+            "cta": "Reserva tu mesa"
+          },
+          "specialties": [
+            { "name": "Pasta Fresca", "description": "Elaborada diariamente con ingredientes importados", "emoji": "🍝" },
+            { "name": "Pizzas al Horno", "description": "Cocidas en horno de leña tradicional", "emoji": "🍕" },
+            { "name": "Vinos Selectos", "description": "Cuidada selección de vinos italianos y locales", "emoji": "🍷" }
+          ]
+        }
+      },
+      "/menu": {
+        "page": "Menu",
+        "meta": {
+          "title": "Menú - La Bella Italia",
+          "description": "Descubre nuestra carta de platillos italianos."
+        },
+        "content": {
+          "categories": [
+            {
+              "name": "Entradas",
+              "items": [
+                { "name": "Bruschetta al Pomodoro", "description": "Pan tostado con tomate fresco y albahaca", "price": "$95" },
+                { "name": "Carpaccio di Manzo", "description": "Finas láminas de res con alcaparras y parmesano", "price": "$165" },
+                { "name": "Tabla de Antipasti", "description": "Selección de embutidos, quesos y verduras", "price": "$220" }
+              ]
+            },
+            {
+              "name": "Pastas",
+              "items": [
+                { "name": "Spaghetti Carbonara", "description": "Pasta con huevo, guanciale y pecorino", "price": "$185" },
+                { "name": "Pappardelle al Ragù", "description": "Pasta ancha con ragù boloñés de res", "price": "$195" },
+                { "name": "Gnocchi al Pesto", "description": "Ñoquis de papa con pesto genovés", "price": "$175" }
+              ]
+            },
+            {
+              "name": "Pizzas",
+              "items": [
+                { "name": "Margherita", "description": "Salsa de tomate, mozzarella y albahaca fresca", "price": "$165" },
+                { "name": "Prosciutto e Funghi", "description": "Jamón de Parma y hongos mixtos", "price": "$195" },
+                { "name": "Quattro Formaggi", "description": "Cuatro quesos: mozzarella, gorgonzola, fontina y parmesano", "price": "$205" }
+              ]
+            }
+          ]
+        }
+      },
+      "/contact": {
+        "page": "Contact",
+        "meta": {
+          "title": "Contacto - La Bella Italia",
+          "description": "Contáctanos para reservaciones y más información."
+        },
+        "content": {
+          "address": "Av. Presidente Masaryk 123, Polanco, CDMX",
+          "phone": "+52 55 1234 5678",
+          "email": "hola@labellaitalia.mx",
+          "hours": [
+            { "days": "Lunes - Jueves", "time": "1:00 PM – 11:00 PM" },
+            { "days": "Viernes - Sábado", "time": "1:00 PM – 12:00 AM" },
+            { "days": "Domingo", "time": "1:00 PM – 10:00 PM" }
+          ]
+        }
+      }
+    }
+  },
+  "burger-house": {
+    "subdomain": "burgerhouse",
+    "template": "restaurantes/template-casual",
+    "config": {
+      "brandName": "Burger House",
+      "logo": "",
+      "primaryColor": "#ea580c",
+      "whatsapp": "5215587654321",
+      "navbar": {
+        "links": [
+          { "label": "Inicio", "href": "/" },
+          { "label": "Menú", "href": "/menu" },
+          { "label": "Delivery", "href": "/delivery" }
+        ]
+      },
+      "footer": {
+        "text": "© 2025 Burger House. Todos los derechos reservados.",
+        "links": [
+          { "label": "Términos", "href": "#" }
+        ]
+      }
+    },
+    "pages": {
+      "/": {
+        "page": "Home",
+        "meta": {
+          "title": "Burger House - Las Mejores Burgers",
+          "description": "Las hamburguesas más jugosas de la ciudad."
+        },
+        "content": {
+          "hero": {
+            "headline": "¡Las Burgers Más Épicas!",
+            "subheadline": "Sabor que explota en cada mordida",
+            "cta": "Ver Menú"
+          },
+          "promos": [
+            { "title": "2x1 los Martes", "description": "Pide 2 burgers y paga solo 1 todos los martes", "badge": "HOT 🔥", "color": "bg-red-500" },
+            { "title": "Combo Familiar", "description": "4 burgers + 4 refrescos + papas grandes por $420", "badge": "DEAL 💥", "color": "bg-orange-500" },
+            { "title": "Burger del Mes", "description": "BBQ Smoky: doble carne, bacon crocante, cheddar ahumado", "badge": "NEW ⭐", "color": "bg-yellow-500" }
+          ]
+        }
+      },
+      "/menu": {
+        "page": "Menu",
+        "meta": {
+          "title": "Menú - Burger House",
+          "description": "Nuestro menú de hamburguesas y más."
+        },
+        "content": {
+          "items": [
+            { "name": "Classic House", "description": "Carne de res, lechuga, jitomate, cebolla, pepinillos", "price": "$95", "emoji": "🍔" },
+            { "name": "BBQ Smoky", "description": "Doble carne, bacon, cheddar ahumado, salsa BBQ", "price": "$145", "emoji": "🥩" },
+            { "name": "Veggie Delight", "description": "Medallón de frijol negro, aguacate, sprouts", "price": "$110", "emoji": "🥗" },
+            { "name": "Spicy Jalapeño", "description": "Jalapeños frescos, queso pepper jack, crema chipotle", "price": "$125", "emoji": "🌶️" },
+            { "name": "Mushroom Swiss", "description": "Champiñones salteados, queso suizo, mayonesa de ajo", "price": "$130", "emoji": "🍄" },
+            { "name": "Double Smash", "description": "Doble smash patty, double cheese, salsa secreta", "price": "$155", "emoji": "💪" }
+          ]
+        }
+      },
+      "/delivery": {
+        "page": "Delivery",
+        "meta": {
+          "title": "Delivery - Burger House",
+          "description": "Pide a domicilio por tu app favorita."
+        },
+        "content": {
+          "apps": [
+            { "name": "Uber Eats", "url": "#", "color": "bg-green-500", "emoji": "🛵" },
+            { "name": "DiDi Food", "url": "#", "color": "bg-orange-500", "emoji": "🍔" },
+            { "name": "Rappi", "url": "#", "color": "bg-yellow-400", "emoji": "🚀" }
+          ],
+          "zones": ["Polanco", "Lomas de Chapultepec", "Santa Fe", "Reforma", "Condesa", "Roma Norte"]
+        }
+      }
+    }
+  },
+  "cp-martinez": {
+    "subdomain": "cpmartinez",
+    "template": "contadores/template-profesional",
+    "config": {
+      "brandName": "C.P. Martínez & Asociados",
+      "logo": "",
+      "primaryColor": "#1e40af",
+      "whatsapp": "5215511112233",
+      "navbar": {
+        "links": [
+          { "label": "Inicio", "href": "/" },
+          { "label": "Servicios", "href": "/services" },
+          { "label": "Contacto", "href": "/contact" }
+        ]
+      },
+      "footer": {
+        "text": "© 2025 C.P. Martínez & Asociados. Todos los derechos reservados.",
+        "links": [
+          { "label": "Aviso de Privacidad", "href": "#" }
+        ]
+      }
+    },
+    "pages": {
+      "/": {
+        "page": "Home",
+        "meta": {
+          "title": "C.P. Martínez & Asociados - Despacho Contable",
+          "description": "Servicios contables y fiscales profesionales."
+        },
+        "content": {
+          "hero": {
+            "headline": "Tu Tranquilidad Fiscal, Nuestra Responsabilidad",
+            "subheadline": "Más de 15 años brindando servicios contables y fiscales a personas físicas y empresas.",
+            "cta": "Agendar Consulta"
+          },
+          "highlights": [
+            { "icon": "📊", "title": "Contabilidad Empresarial", "description": "Estados financieros, libros contables y reportes mensuales." },
+            { "icon": "🧾", "title": "Declaraciones Fiscales", "description": "SAT, ISR, IVA: cumplimiento puntual y optimización fiscal." },
+            { "icon": "🏢", "title": "Constitución de Empresas", "description": "Apertura de personas morales, altas ante el SAT y IMSS." }
+          ],
+          "testimonials": [
+            { "name": "Roberto Sánchez", "company": "Importaciones RS S.A.", "text": "Llevan mi contabilidad hace 8 años. Profesionales, puntuales y siempre disponibles.", "rating": 5 },
+            { "name": "Ana Gutiérrez", "company": "Persona Física con Actividad Empresarial", "text": "Me ayudaron a regularizarme con el SAT sin complicaciones. ¡Excelente servicio!", "rating": 5 }
+          ]
+        }
+      },
+      "/services": {
+        "page": "Services",
+        "meta": {
+          "title": "Servicios - C.P. Martínez & Asociados",
+          "description": "Nuestros servicios contables y fiscales."
+        },
+        "content": {
+          "categories": [
+            {
+              "name": "Personas Físicas",
+              "icon": "👤",
+              "services": [
+                { "name": "Declaración Anual ISR", "description": "Optimización fiscal y presentación oportuna", "price": "Desde $1,500" },
+                { "name": "Alta en el SAT", "description": "Inscripción como persona física con actividad empresarial", "price": "Desde $800" },
+                { "name": "Declaraciones Mensuales", "description": "IVA e ISR mensual para arrendadores y profesionistas", "price": "Desde $1,200/mes" }
+              ]
+            },
+            {
+              "name": "Empresas",
+              "icon": "🏢",
+              "services": [
+                { "name": "Contabilidad Mensual", "description": "Registro de operaciones, estados financieros y reportes", "price": "Desde $3,500/mes" },
+                { "name": "Nómina", "description": "Cálculo, timbrado y gestión de nómina ante el IMSS", "price": "Desde $2,000/mes" },
+                { "name": "Constitución de Empresa", "description": "Constitución ante notario, alta SAT, IMSS e INFONAVIT", "price": "Desde $8,500" }
+              ]
+            }
+          ]
+        }
+      },
+      "/contact": {
+        "page": "Contact",
+        "meta": {
+          "title": "Contacto - C.P. Martínez & Asociados",
+          "description": "Contáctanos para una consulta."
+        },
+        "content": {
+          "address": "Insurgentes Sur 1234, Piso 8, Col. Del Valle, CDMX",
+          "phone": "+52 55 1111 2233",
+          "email": "contacto@cpmartinez.mx",
+          "hours": [
+            { "days": "Lunes - Viernes", "time": "9:00 AM – 7:00 PM" },
+            { "days": "Sábado", "time": "10:00 AM – 2:00 PM" }
+          ]
+        }
+      }
+    }
+  },
+  "tacos-don-pepe": {
+    "subdomain": "tacosdonpepe",
+    "template": "customs/tacos-don-pepe",
+    "config": {
+      "brandName": "Tacos Don Pepe",
+      "logo": "",
+      "primaryColor": "#16a34a",
+      "whatsapp": "5215599887766",
+      "navbar": {
+        "links": [
+          { "label": "Inicio", "href": "/" },
+          { "label": "Sucursales", "href": "/sucursales" }
+        ]
+      },
+      "footer": {
+        "text": "© 2025 Tacos Don Pepe. El sabor de siempre.",
+        "links": [
+          { "label": "Inicio", "href": "/" }
+        ]
+      }
+    },
+    "pages": {
+      "/": {
+        "page": "Home",
+        "meta": {
+          "title": "Tacos Don Pepe - El Sabor de Siempre",
+          "description": "Los mejores tacos desde 1985."
+        },
+        "content": {
+          "hero": {
+            "headline": "¡Los Mejores Tacos desde 1985!",
+            "subheadline": "Tradición y sabor en cada bocado",
+            "cta": "Ver Sucursales"
+          },
+          "menu": [
+            { "name": "Taco de Suadero", "price": "$18", "emoji": "🌮" },
+            { "name": "Taco de Pastor", "price": "$18", "emoji": "🌮" },
+            { "name": "Taco de Bistec", "price": "$20", "emoji": "🌮" },
+            { "name": "Taco de Longaniza", "price": "$20", "emoji": "🌮" },
+            { "name": "Taco de Tripa", "price": "$18", "emoji": "🌮" },
+            { "name": "Quesadilla", "price": "$35", "emoji": "🫓" }
+          ],
+          "salsas": [
+            { "name": "Verde Tomatillo", "heat": 2, "color": "bg-green-500", "description": "Suave y fresca con tomatillo y cilantro" },
+            { "name": "Roja Molcajeteada", "heat": 3, "color": "bg-red-500", "description": "Intenso sabor a chile morita ahumado" },
+            { "name": "Habanero Amarilla", "heat": 5, "color": "bg-yellow-400", "description": "Para los valientes, habanero puro" },
+            { "name": "Macha de Cacahuate", "heat": 4, "color": "bg-amber-700", "description": "Aceite con chile y cacahuate tostado" }
+          ]
+        }
+      },
+      "/sucursales": {
+        "page": "Sucursales",
+        "meta": {
+          "title": "Sucursales - Tacos Don Pepe",
+          "description": "Encuentra la sucursal más cercana."
+        },
+        "content": {
+          "locations": [
+            {
+              "name": "Sucursal Centro",
+              "address": "Calle Mesones 47, Centro Histórico, CDMX",
+              "phone": "55 1234 5678",
+              "hours": "Mar–Dom 8:00 AM – 4:00 PM",
+              "emoji": "🏠"
+            },
+            {
+              "name": "Sucursal Doctores",
+              "address": "Dr. Río de la Loza 234, Doctores, CDMX",
+              "phone": "55 8765 4321",
+              "hours": "Mar–Dom 8:00 AM – 4:00 PM",
+              "emoji": "🏪"
+            },
+            {
+              "name": "Sucursal Tepito",
+              "address": "Eje 1 Norte 123, Tepito, CDMX",
+              "phone": "55 5566 7788",
+              "hours": "Mar–Dom 7:00 AM – 3:00 PM",
+              "emoji": "🌮"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

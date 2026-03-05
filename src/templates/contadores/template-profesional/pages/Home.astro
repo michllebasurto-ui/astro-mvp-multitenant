@@ -1,0 +1,93 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import Navbar from '../../../_shared/Navbar.astro';
+import Footer from '../../../_shared/Footer.astro';
+import WhatsAppButton from '../../../_shared/WhatsAppButton.astro';
+import Testimonials from '../components/Testimonials.astro';
+import type { TenantData, PageData } from '../../../../lib/tenant';
+
+interface Props {
+  tenant: TenantData;
+  pageData: PageData;
+  request: Request;
+}
+
+const { tenant, pageData, request } = Astro.props;
+const url = new URL(request.url);
+const useQueryParam = url.searchParams.has('tenant');
+const tenantSlug = url.searchParams.get('tenant') || '';
+const content = pageData.content as any;
+---
+<BaseLayout title={pageData.meta.title} description={pageData.meta.description}>
+  <div class="min-h-screen flex flex-col bg-slate-50">
+    <Navbar config={tenant.config} currentPath="/" tenantSlug={tenantSlug} useQueryParam={useQueryParam} />
+
+    <!-- Hero -->
+    <section class="bg-gradient-to-r from-blue-900 to-blue-700 py-24">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div class="text-white">
+            <p class="text-blue-300 font-semibold uppercase tracking-widest text-sm mb-4">Despacho Contable Certificado</p>
+            <h1 class="text-4xl md:text-5xl font-bold mb-6 leading-tight">{content.hero?.headline}</h1>
+            <p class="text-blue-100 text-lg mb-8">{content.hero?.subheadline}</p>
+            <a
+              href={useQueryParam ? `/contact?tenant=${tenantSlug}` : '/contact'}
+              class="inline-block bg-white text-blue-900 font-bold py-4 px-8 rounded-lg hover:bg-blue-50 transition-colors shadow-lg"
+            >
+              {content.hero?.cta}
+            </a>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-white text-center">
+              <div class="text-4xl font-bold">15+</div>
+              <div class="text-blue-200 text-sm mt-1">Años de experiencia</div>
+            </div>
+            <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-white text-center">
+              <div class="text-4xl font-bold">200+</div>
+              <div class="text-blue-200 text-sm mt-1">Clientes activos</div>
+            </div>
+            <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-white text-center">
+              <div class="text-4xl font-bold">100%</div>
+              <div class="text-blue-200 text-sm mt-1">Cumplimiento SAT</div>
+            </div>
+            <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-white text-center">
+              <div class="text-4xl font-bold">24/7</div>
+              <div class="text-blue-200 text-sm mt-1">Soporte urgencias</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Highlights -->
+    {content.highlights && (
+      <section class="py-16 bg-white">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 class="text-3xl font-bold text-gray-900 text-center mb-12">Nuestros Servicios Principales</h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {content.highlights.map((h: any) => (
+              <div class="text-center p-8 rounded-xl border border-gray-100 hover:border-blue-200 hover:shadow-md transition-all">
+                <div class="text-4xl mb-4">{h.icon}</div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3">{h.title}</h3>
+                <p class="text-gray-600 text-sm">{h.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- Testimonials -->
+    {content.testimonials && (
+      <section class="py-16 bg-slate-50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 class="text-3xl font-bold text-gray-900 text-center mb-12">Lo que dicen nuestros clientes</h2>
+          <Testimonials testimonials={content.testimonials} />
+        </div>
+      </section>
+    )}
+
+    <Footer config={tenant.config} tenantSlug={tenantSlug} useQueryParam={useQueryParam} />
+    <WhatsAppButton phone={tenant.config.whatsapp} />
+  </div>
+</BaseLayout>
