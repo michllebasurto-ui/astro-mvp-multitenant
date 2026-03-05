@@ -1,0 +1,97 @@
+{
+  "subdomain": "labellaitalia",
+  "template": "restaurantes/template-elegante",
+  "config": {
+    "brandName": "La Bella Italia",
+    "logo": "",
+    "primaryColor": "#b45309",
+    "whatsapp": "5215512345678",
+    "navbar": {
+      "links": [
+        { "label": "Inicio", "href": "/" },
+        { "label": "Menú", "href": "/menu" },
+        { "label": "Contacto", "href": "/contact" }
+      ]
+    },
+    "footer": {
+      "text": "© 2025 La Bella Italia. Todos los derechos reservados.",
+      "links": [
+        { "label": "Privacidad", "href": "#" }
+      ]
+    }
+  },
+  "pages": {
+    "/": {
+      "page": "Home",
+      "meta": {
+        "title": "La Bella Italia - Restaurante Italiano",
+        "description": "Auténtica cocina italiana en el corazón de la ciudad."
+      },
+      "content": {
+        "hero": {
+          "headline": "Auténtica Cocina Italiana",
+          "subheadline": "Una experiencia gastronómica inigualable",
+          "backgroundImage": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600&q=80",
+          "cta": "Reserva tu mesa"
+        },
+        "specialties": [
+          { "name": "Pasta Fresca", "description": "Elaborada diariamente con ingredientes importados", "emoji": "🍝" },
+          { "name": "Pizzas al Horno", "description": "Cocidas en horno de leña tradicional", "emoji": "🍕" },
+          { "name": "Vinos Selectos", "description": "Cuidada selección de vinos italianos y locales", "emoji": "🍷" }
+        ]
+      }
+    },
+    "/menu": {
+      "page": "Menu",
+      "meta": {
+        "title": "Menú - La Bella Italia",
+        "description": "Descubre nuestra carta de platillos italianos."
+      },
+      "content": {
+        "categories": [
+          {
+            "name": "Entradas",
+            "items": [
+              { "name": "Bruschetta al Pomodoro", "description": "Pan tostado con tomate fresco y albahaca", "price": "$95" },
+              { "name": "Carpaccio di Manzo", "description": "Finas láminas de res con alcaparras y parmesano", "price": "$165" },
+              { "name": "Tabla de Antipasti", "description": "Selección de embutidos, quesos y verduras", "price": "$220" }
+            ]
+          },
+          {
+            "name": "Pastas",
+            "items": [
+              { "name": "Spaghetti Carbonara", "description": "Pasta con huevo, guanciale y pecorino", "price": "$185" },
+              { "name": "Pappardelle al Ragù", "description": "Pasta ancha con ragù boloñés de res", "price": "$195" },
+              { "name": "Gnocchi al Pesto", "description": "Ñoquis de papa con pesto genovés", "price": "$175" }
+            ]
+          },
+          {
+            "name": "Pizzas",
+            "items": [
+              { "name": "Margherita", "description": "Salsa de tomate, mozzarella y albahaca fresca", "price": "$165" },
+              { "name": "Prosciutto e Funghi", "description": "Jamón de Parma y hongos mixtos", "price": "$195" },
+              { "name": "Quattro Formaggi", "description": "Cuatro quesos: mozzarella, gorgonzola, fontina y parmesano", "price": "$205" }
+            ]
+          }
+        ]
+      }
+    },
+    "/contact": {
+      "page": "Contact",
+      "meta": {
+        "title": "Contacto - La Bella Italia",
+        "description": "Contáctanos para reservaciones y más información."
+      },
+      "content": {
+        "address": "Av. Presidente Masaryk 123, Polanco, CDMX",
+        "phone": "+52 55 1234 5678",
+        "email": "hola@labellaitalia.mx",
+        "hours": [
+          { "days": "Lunes - Jueves", "time": "1:00 PM – 11:00 PM" },
+          { "days": "Viernes - Sábado", "time": "1:00 PM – 12:00 AM" },
+          { "days": "Domingo", "time": "1:00 PM – 10:00 PM" }
+        ]
+      }
+    }
+  }
+}

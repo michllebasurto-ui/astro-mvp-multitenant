@@ -3,19 +3,19 @@ import { resolveTenantAndPage } from '../lib/tenant';
 import { getTemplateComponent } from '../lib/template-registry';
 
 const { page } = Astro.params;
-const pagePath = `/${page}`;
+const pageSlug = `/${page}`;
 
-const resolved = resolveTenantAndPage(Astro.request, pagePath);
+const resolved = await resolveTenantAndPage(Astro.request, pageSlug);
 
 if (!resolved) {
   return new Response(null, { status: 404, statusText: 'Not Found' });
 }
 
-const { tenant, pageData } = resolved;
-const Component = getTemplateComponent(tenant.template, pageData.page);
+const { tenant, page: resolvedPage } = resolved;
+const Component = await getTemplateComponent(tenant.template, resolvedPage.page);
 
 if (!Component) {
   return new Response(null, { status: 404, statusText: 'Not Found' });
 }
 ---
-<Component tenant={tenant} pageData={pageData} request={Astro.request} />
+<Component tenant={tenant} pageData={resolvedPage} request={Astro.request} />

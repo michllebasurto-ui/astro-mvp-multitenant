@@ -1,0 +1,93 @@
+{
+  "subdomain": "cpmartinez",
+  "template": "contadores/template-profesional",
+  "config": {
+    "brandName": "C.P. Martínez & Asociados",
+    "logo": "",
+    "primaryColor": "#1e40af",
+    "whatsapp": "5215511112233",
+    "navbar": {
+      "links": [
+        { "label": "Inicio", "href": "/" },
+        { "label": "Servicios", "href": "/services" },
+        { "label": "Contacto", "href": "/contact" }
+      ]
+    },
+    "footer": {
+      "text": "© 2025 C.P. Martínez & Asociados. Todos los derechos reservados.",
+      "links": [
+        { "label": "Aviso de Privacidad", "href": "#" }
+      ]
+    }
+  },
+  "pages": {
+    "/": {
+      "page": "Home",
+      "meta": {
+        "title": "C.P. Martínez & Asociados - Despacho Contable",
+        "description": "Servicios contables y fiscales profesionales."
+      },
+      "content": {
+        "hero": {
+          "headline": "Tu Tranquilidad Fiscal, Nuestra Responsabilidad",
+          "subheadline": "Más de 15 años brindando servicios contables y fiscales a personas físicas y empresas.",
+          "cta": "Agendar Consulta"
+        },
+        "highlights": [
+          { "icon": "📊", "title": "Contabilidad Empresarial", "description": "Estados financieros, libros contables y reportes mensuales." },
+          { "icon": "🧾", "title": "Declaraciones Fiscales", "description": "SAT, ISR, IVA: cumplimiento puntual y optimización fiscal." },
+          { "icon": "🏢", "title": "Constitución de Empresas", "description": "Apertura de personas morales, altas ante el SAT y IMSS." }
+        ],
+        "testimonials": [
+          { "name": "Roberto Sánchez", "company": "Importaciones RS S.A.", "text": "Llevan mi contabilidad hace 8 años. Profesionales, puntuales y siempre disponibles.", "rating": 5 },
+          { "name": "Ana Gutiérrez", "company": "Persona Física con Actividad Empresarial", "text": "Me ayudaron a regularizarme con el SAT sin complicaciones. ¡Excelente servicio!", "rating": 5 }
+        ]
+      }
+    },
+    "/services": {
+      "page": "Services",
+      "meta": {
+        "title": "Servicios - C.P. Martínez & Asociados",
+        "description": "Nuestros servicios contables y fiscales."
+      },
+      "content": {
+        "categories": [
+          {
+            "name": "Personas Físicas",
+            "icon": "👤",
+            "services": [
+              { "name": "Declaración Anual ISR", "description": "Optimización fiscal y presentación oportuna", "price": "Desde $1,500" },
+              { "name": "Alta en el SAT", "description": "Inscripción como persona física con actividad empresarial", "price": "Desde $800" },
+              { "name": "Declaraciones Mensuales", "description": "IVA e ISR mensual para arrendadores y profesionistas", "price": "Desde $1,200/mes" }
+            ]
+          },
+          {
+            "name": "Empresas",
+            "icon": "🏢",
+            "services": [
+              { "name": "Contabilidad Mensual", "description": "Registro de operaciones, estados financieros y reportes", "price": "Desde $3,500/mes" },
+              { "name": "Nómina", "description": "Cálculo, timbrado y gestión de nómina ante el IMSS", "price": "Desde $2,000/mes" },
+              { "name": "Constitución de Empresa", "description": "Constitución ante notario, alta SAT, IMSS e INFONAVIT", "price": "Desde $8,500" }
+            ]
+          }
+        ]
+      }
+    },
+    "/contact": {
+      "page": "Contact",
+      "meta": {
+        "title": "Contacto - C.P. Martínez & Asociados",
+        "description": "Contáctanos para una consulta."
+      },
+      "content": {
+        "address": "Insurgentes Sur 1234, Piso 8, Col. Del Valle, CDMX",
+        "phone": "+52 55 1111 2233",
+        "email": "contacto@cpmartinez.mx",
+        "hours": [
+          { "days": "Lunes - Viernes", "time": "9:00 AM – 7:00 PM" },
+          { "days": "Sábado", "time": "10:00 AM – 2:00 PM" }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "subdomain": "burgerhouse",
+  "template": "restaurantes/template-casual",
+  "config": {
+    "brandName": "Burger House",
+    "logo": "",
+    "primaryColor": "#ea580c",
+    "whatsapp": "5215587654321",
+    "navbar": {
+      "links": [
+        { "label": "Inicio", "href": "/" },
+        { "label": "Menú", "href": "/menu" },
+        { "label": "Delivery", "href": "/delivery" }
+      ]
+    },
+    "footer": {
+      "text": "© 2025 Burger House. Todos los derechos reservados.",
+      "links": [
+        { "label": "Términos", "href": "#" }
+      ]
+    }
+  },
+  "pages": {
+    "/": {
+      "page": "Home",
+      "meta": {
+        "title": "Burger House - Las Mejores Burgers",
+        "description": "Las hamburguesas más jugosas de la ciudad."
+      },
+      "content": {
+        "hero": {
+          "headline": "¡Las Burgers Más Épicas!",
+          "subheadline": "Sabor que explota en cada mordida",
+          "cta": "Ver Menú"
+        },
+        "promos": [
+          { "title": "2x1 los Martes", "description": "Pide 2 burgers y paga solo 1 todos los martes", "badge": "HOT 🔥", "color": "bg-red-500" },
+          { "title": "Combo Familiar", "description": "4 burgers + 4 refrescos + papas grandes por $420", "badge": "DEAL 💥", "color": "bg-orange-500" },
+          { "title": "Burger del Mes", "description": "BBQ Smoky: doble carne, bacon crocante, cheddar ahumado", "badge": "NEW ⭐", "color": "bg-yellow-500" }
+        ]
+      }
+    },
+    "/menu": {
+      "page": "Menu",
+      "meta": {
+        "title": "Menú - Burger House",
+        "description": "Nuestro menú de hamburguesas y más."
+      },
+      "content": {
+        "items": [
+          { "name": "Classic House", "description": "Carne de res, lechuga, jitomate, cebolla, pepinillos", "price": "$95", "emoji": "🍔" },
+          { "name": "BBQ Smoky", "description": "Doble carne, bacon, cheddar ahumado, salsa BBQ", "price": "$145", "emoji": "🥩" },
+          { "name": "Veggie Delight", "description": "Medallón de frijol negro, aguacate, sprouts", "price": "$110", "emoji": "🥗" },
+          { "name": "Spicy Jalapeño", "description": "Jalapeños frescos, queso pepper jack, crema chipotle", "price": "$125", "emoji": "🌶️" },
+          { "name": "Mushroom Swiss", "description": "Champiñones salteados, queso suizo, mayonesa de ajo", "price": "$130", "emoji": "🍄" },
+          { "name": "Double Smash", "description": "Doble smash patty, double cheese, salsa secreta", "price": "$155", "emoji": "💪" }
+        ]
+      }
+    },
+    "/delivery": {
+      "page": "Delivery",
+      "meta": {
+        "title": "Delivery - Burger House",
+        "description": "Pide a domicilio por tu app favorita."
+      },
+      "content": {
+        "apps": [
+          { "name": "Uber Eats", "url": "#", "color": "bg-green-500", "emoji": "🛵" },
+          { "name": "DiDi Food", "url": "#", "color": "bg-orange-500", "emoji": "🍔" },
+          { "name": "Rappi", "url": "#", "color": "bg-yellow-400", "emoji": "🚀" }
+        ],
+        "zones": ["Polanco", "Lomas de Chapultepec", "Santa Fe", "Reforma", "Condesa", "Roma Norte"]
+      }
+    }
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "subdomain": "tacosdonpepe",
+  "template": "customs/tacos-don-pepe",
+  "config": {
+    "brandName": "Tacos Don Pepe",
+    "logo": "",
+    "primaryColor": "#16a34a",
+    "whatsapp": "5215599887766",
+    "navbar": {
+      "links": [
+        { "label": "Inicio", "href": "/" },
+        { "label": "Sucursales", "href": "/sucursales" }
+      ]
+    },
+    "footer": {
+      "text": "© 2025 Tacos Don Pepe. El sabor de siempre.",
+      "links": [
+        { "label": "Inicio", "href": "/" }
+      ]
+    }
+  },
+  "pages": {
+    "/": {
+      "page": "Home",
+      "meta": {
+        "title": "Tacos Don Pepe - El Sabor de Siempre",
+        "description": "Los mejores tacos desde 1985."
+      },
+      "content": {
+        "hero": {
+          "headline": "¡Los Mejores Tacos desde 1985!",
+          "subheadline": "Tradición y sabor en cada bocado",
+          "cta": "Ver Sucursales"
+        },
+        "menu": [
+          { "name": "Taco de Suadero", "price": "$18", "emoji": "🌮" },
+          { "name": "Taco de Pastor", "price": "$18", "emoji": "🌮" },
+          { "name": "Taco de Bistec", "price": "$20", "emoji": "🌮" },
+          { "name": "Taco de Longaniza", "price": "$20", "emoji": "🌮" },
+          { "name": "Taco de Tripa", "price": "$18", "emoji": "🌮" },
+          { "name": "Quesadilla", "price": "$35", "emoji": "🫓" }
+        ],
+        "salsas": [
+          { "name": "Verde Tomatillo", "heat": 2, "color": "bg-green-500", "description": "Suave y fresca con tomatillo y cilantro" },
+          { "name": "Roja Molcajeteada", "heat": 3, "color": "bg-red-500", "description": "Intenso sabor a chile morita ahumado" },
+          { "name": "Habanero Amarilla", "heat": 5, "color": "bg-yellow-400", "description": "Para los valientes, habanero puro" },
+          { "name": "Macha de Cacahuate", "heat": 4, "color": "bg-amber-700", "description": "Aceite con chile y cacahuate tostado" }
+        ]
+      }
+    },
+    "/sucursales": {
+      "page": "Sucursales",
+      "meta": {
+        "title": "Sucursales - Tacos Don Pepe",
+        "description": "Encuentra la sucursal más cercana."
+      },
+      "content": {
+        "locations": [
+          {
+            "name": "Sucursal Centro",
+            "address": "Calle Mesones 47, Centro Histórico, CDMX",
+            "phone": "55 1234 5678",
+            "hours": "Mar–Dom 8:00 AM – 4:00 PM",
+            "emoji": "🏠"
+          },
+          {
+            "name": "Sucursal Doctores",
+            "address": "Dr. Río de la Loza 234, Doctores, CDMX",
+            "phone": "55 8765 4321",
+            "hours": "Mar–Dom 8:00 AM – 4:00 PM",
+            "emoji": "🏪"
+          },
+          {
+            "name": "Sucursal Tepito",
+            "address": "Eje 1 Norte 123, Tepito, CDMX",
+            "phone": "55 5566 7788",
+            "hours": "Mar–Dom 7:00 AM – 3:00 PM",
+            "emoji": "🌮"
+          }
+        ]
+      }
+    }
+  }
+}
