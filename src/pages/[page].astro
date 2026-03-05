@@ -1,7 +1,7 @@
 ---
 import {
   resolveTenant,
-  resolveTenantAndPage,
+  resolvePageForTenant,
   buildTenantUrl,
 } from "../lib/tenant";
 import { getTemplateComponent } from "../lib/template-registry";
@@ -10,13 +10,15 @@ import NotFoundPage from "../templates/_shared/NotFoundPage.astro";
 const { page } = Astro.params;
 const pageSlug = `/${page}`;
 
-// Resolver tenant y página
+// Resolve tenant ONCE
 const tenantResult = await resolveTenant(Astro.request);
+
+// Resolve page using already-resolved tenant (no second resolveTenant call)
 const resolved = tenantResult
-  ? await resolveTenantAndPage(Astro.request, pageSlug)
+  ? resolvePageForTenant(tenantResult.tenant, tenantResult.tenantSlug, pageSlug)
   : null;
 
-// Si hay tenant + página → cargar componente
+// If tenant + page found → load component
 let Component: any = null;
 if (resolved) {
   Component = await getTemplateComponent(
@@ -25,14 +27,14 @@ if (resolved) {
   );
 }
 
-// Determinar si es 404
+// Determine if 404
 const is404 = !tenantResult || !resolved || !Component;
 
 if (is404) {
   Astro.response.status = 404;
 }
 
-// Preparar datos para 404 del tenant
+// Prepare data for tenant's 404 page
 const url = new URL(Astro.request.url);
 const useQueryParam = url.searchParams.has("tenant");
 const tenantSlug = tenantResult?.tenantSlug || "";

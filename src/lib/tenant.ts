@@ -57,6 +57,22 @@ export async function resolveTenantAndPage(
   return { tenant, tenantSlug, page };
 }
 
+export function resolvePageForTenant(
+  tenant: TenantData,
+  tenantSlug: string,
+  pagePath: string = "/",
+): ResolvedPage | null {
+  const normalizedPath =
+    pagePath === "" || pagePath === "/"
+      ? "/"
+      : pagePath.startsWith("/")
+        ? pagePath
+        : `/${pagePath}`;
+  const page = tenant.pages[normalizedPath];
+  if (!page) return null;
+  return { tenant, tenantSlug, page };
+}
+
 export function buildTenantUrl(
   request: Request,
   tenantSlug: string,
