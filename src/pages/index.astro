@@ -1,28 +1,19 @@
 ---
-import { resolveTenant } from '../lib/tenant';
+import { resolveTenantAndPage } from '../lib/tenant';
 import { getTemplateComponent } from '../lib/template-registry';
 import DefaultHome from '../templates/default/pages/Home.astro';
 
-const resolved = resolveTenant(Astro.request);
-let TenantComponent: any = null;
-let tenantPageData: any = null;
-let tenantData: any = null;
+const resolved = await resolveTenantAndPage(Astro.request, '/');
+
+let PageComponent: any = null;
 
 if (resolved) {
-  const { tenant } = resolved;
-  const pageData = tenant.pages['/'];
-  if (pageData) {
-    const Component = getTemplateComponent(tenant.template, pageData.page);
-    if (Component) {
-      TenantComponent = Component;
-      tenantPageData = pageData;
-      tenantData = tenant;
-    }
-  }
+  const { tenant, page } = resolved;
+  PageComponent = await getTemplateComponent(tenant.template, page.page);
 }
 ---
-{TenantComponent ? (
-  <TenantComponent tenant={tenantData} pageData={tenantPageData} request={Astro.request} />
+{PageComponent && resolved ? (
+  <PageComponent tenant={resolved.tenant} pageData={resolved.page} request={Astro.request} />
 ) : (
   <DefaultHome />
 )}
