@@ -1,5 +1,5 @@
 ---
-import type { TenantConfig } from '../../lib/tenant';
+import type { TenantConfig } from "../../lib/tenant";
 
 interface Props {
   config: TenantConfig;
@@ -8,35 +8,56 @@ interface Props {
   useQueryParam?: boolean;
 }
 
-const { config, currentPath = '/', tenantSlug, useQueryParam = false } = Astro.props;
+const {
+  config,
+  currentPath = "/",
+  tenantSlug,
+  useQueryParam = false,
+} = Astro.props;
 
 function buildLink(href: string): string {
   if (useQueryParam && tenantSlug) {
-    return href === '/' ? `/?tenant=${tenantSlug}` : `${href}?tenant=${tenantSlug}`;
+    return href === "/"
+      ? `/?tenant=${tenantSlug}`
+      : `${href}?tenant=${tenantSlug}`;
   }
   return href;
 }
 ---
-<nav style={`--primary: ${config.primaryColor}`} class="bg-white shadow-md sticky top-0 z-50">
+
+<nav
+  style={`--primary: ${config.primaryColor}`}
+  class="bg-white shadow-md sticky top-0 z-50"
+>
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16">
       <!-- Brand -->
-      <a href={buildLink('/')} class="flex items-center gap-2 font-bold text-xl" style={`color: var(--primary)`}>
-        {config.logo && <img src={config.logo} alt={config.brandName} class="h-8 w-auto" />}
+      <a
+        href={buildLink("/")}
+        class="flex items-center gap-2 font-bold text-xl"
+        style={`color: var(--primary)`}
+      >
+        {
+          config.logo && (
+            <img src={config.logo} alt={config.brandName} class="h-8 w-auto" />
+          )
+        }
         <span>{config.brandName}</span>
       </a>
 
       <!-- Desktop links -->
       <div class="hidden md:flex items-center gap-6">
-        {config.navbar.links.map((link) => (
-          <a
-            href={buildLink(link.href)}
-            class={`text-sm font-medium transition-colors hover:opacity-70 ${currentPath === link.href ? 'font-bold' : 'text-gray-600'}`}
-            style={currentPath === link.href ? `color: var(--primary)` : ''}
-          >
-            {link.label}
-          </a>
-        ))}
+        {
+          config.navbar.links.map((link) => (
+            <a
+              href={buildLink(link.href)}
+              class={`text-sm font-medium transition-colors hover:opacity-70 ${currentPath === link.href ? "font-bold" : "text-gray-600"}`}
+              style={currentPath === link.href ? `color: var(--primary)` : ""}
+            >
+              {link.label}
+            </a>
+          ))
+        }
       </div>
 
       <!-- Mobile hamburger -->
@@ -45,37 +66,58 @@ function buildLink(href: string): string {
         class="md:hidden p-2 rounded-md text-gray-600 hover:text-gray-900"
         aria-label="Abrir menú"
       >
-        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path id="icon-open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-          <path id="icon-close" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        <svg
+          class="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            id="icon-open"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"></path>
+          <path
+            id="icon-close"
+            class="hidden"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"></path>
         </svg>
       </button>
     </div>
 
     <!-- Mobile menu -->
-    <div id="mobile-menu" class="hidden md:hidden pb-4 border-t border-gray-100 mt-1">
-      {config.navbar.links.map((link) => (
-        <a
-          href={buildLink(link.href)}
-          class={`block py-2 px-1 text-sm font-medium ${currentPath === link.href ? 'font-bold' : 'text-gray-600'}`}
-          style={currentPath === link.href ? `color: var(--primary)` : ''}
-        >
-          {link.label}
-        </a>
-      ))}
+    <div
+      id="mobile-menu"
+      class="hidden md:hidden pb-4 border-t border-gray-100 mt-1"
+    >
+      {
+        config.navbar.links.map((link) => (
+          <a
+            href={buildLink(link.href)}
+            class={`block py-2 px-1 text-sm font-medium ${currentPath === link.href ? "font-bold" : "text-gray-600"}`}
+            style={currentPath === link.href ? `color: var(--primary)` : ""}
+          >
+            {link.label}
+          </a>
+        ))
+      }
     </div>
   </div>
 </nav>
 
 <script>
-  const toggle = document.getElementById('menu-toggle');
-  const menu = document.getElementById('mobile-menu');
-  const iconOpen = document.getElementById('icon-open');
-  const iconClose = document.getElementById('icon-close');
+  const toggle = document.getElementById("menu-toggle");
+  const menu = document.getElementById("mobile-menu");
+  const iconOpen = document.getElementById("icon-open");
+  const iconClose = document.getElementById("icon-close");
 
-  toggle?.addEventListener('click', () => {
-    menu?.classList.toggle('hidden');
-    iconOpen?.classList.toggle('hidden');
-    iconClose?.classList.toggle('hidden');
+  toggle?.addEventListener("click", () => {
+    menu?.classList.toggle("hidden");
+    iconOpen?.classList.toggle("hidden");
+    iconClose?.classList.toggle("hidden");
   });
 </script>

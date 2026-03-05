@@ -20,14 +20,16 @@ async function buildSubdomainIndex(): Promise<Map<string, string>> {
   const indexFile = await import("../data/tenants-index.json");
   subdomainIndex = new Map<string, string>();
   for (const [slug, info] of Object.entries(
-    indexFile.default as Record<string, { subdomain: string }>
+    indexFile.default as Record<string, { subdomain: string }>,
   )) {
     subdomainIndex.set(info.subdomain, slug);
   }
   return subdomainIndex;
 }
 
-export async function getTenantBySlug(slug: string): Promise<TenantData | null> {
+export async function getTenantBySlug(
+  slug: string,
+): Promise<TenantData | null> {
   if (!isValidSlug(slug)) return null;
 
   const cached = tenantCache.get(slug);
@@ -45,7 +47,7 @@ export async function getTenantBySlug(slug: string): Promise<TenantData | null> 
 }
 
 export async function getTenantBySubdomain(
-  subdomain: string
+  subdomain: string,
 ): Promise<{ tenant: TenantData; slug: string } | null> {
   const index = await buildSubdomainIndex();
   const slug = index.get(subdomain);

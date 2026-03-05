@@ -1,9 +1,9 @@
 ---
-import BaseLayout from '../../../../layouts/BaseLayout.astro';
-import Navbar from '../../../_shared/Navbar.astro';
-import Footer from '../../../_shared/Footer.astro';
-import WhatsAppButton from '../../../_shared/WhatsAppButton.astro';
-import type { TenantData, PageData } from '../../../../lib/tenant';
+import BaseLayout from "../../../../layouts/BaseLayout.astro";
+import Navbar from "../../../_shared/Navbar.astro";
+import Footer from "../../../_shared/Footer.astro";
+import WhatsAppButton from "../../../_shared/WhatsAppButton.astro";
+import type { TenantData, PageData } from "../../../../lib/tenant";
 
 interface Props {
   tenant: TenantData;
@@ -13,58 +13,81 @@ interface Props {
 
 const { tenant, pageData, request } = Astro.props;
 const url = new URL(request.url);
-const useQueryParam = url.searchParams.has('tenant');
-const tenantSlug = url.searchParams.get('tenant') || '';
+const useQueryParam = url.searchParams.has("tenant");
+const tenantSlug = url.searchParams.get("tenant") || "";
 const content = pageData.content as any;
 ---
+
 <BaseLayout title={pageData.meta.title} description={pageData.meta.description}>
   <div class="min-h-screen flex flex-col">
-    <Navbar config={tenant.config} currentPath="/" tenantSlug={tenantSlug} useQueryParam={useQueryParam} />
+    <Navbar
+      config={tenant.config}
+      currentPath="/"
+      tenantSlug={tenantSlug}
+      useQueryParam={useQueryParam}
+    />
 
     <!-- Hero -->
     <section
       class="relative min-h-[70vh] flex items-center justify-center bg-amber-900"
-      style={content.hero?.backgroundImage ? `background-image: url('${content.hero.backgroundImage}'); background-size: cover; background-position: center;` : ''}
+      style={content.hero?.backgroundImage
+        ? `background-image: url('${content.hero.backgroundImage}'); background-size: cover; background-position: center;`
+        : ""}
     >
       <div class="absolute inset-0 bg-black/50"></div>
       <div class="relative z-10 text-center text-white px-4 max-w-3xl mx-auto">
         <p class="text-amber-300 font-serif italic text-lg mb-4">Benvenuti</p>
-        <h1 class="text-5xl md:text-6xl font-serif font-bold mb-6">{content.hero?.headline}</h1>
-        <p class="text-xl text-white/80 mb-8 font-light">{content.hero?.subheadline}</p>
+        <h1 class="text-5xl md:text-6xl font-serif font-bold mb-6">
+          {content.hero?.headline}
+        </h1>
+        <p class="text-xl text-white/80 mb-8 font-light">
+          {content.hero?.subheadline}
+        </p>
         <a
-          href={useQueryParam ? `/contact?tenant=${tenantSlug}` : '/contact'}
+          href={useQueryParam ? `/contact?tenant=${tenantSlug}` : "/contact"}
           class="inline-block bg-amber-600 hover:bg-amber-700 text-white font-bold py-4 px-10 rounded-full transition-all duration-300 hover:scale-105"
         >
-          {content.hero?.cta || 'Reservar'}
+          {content.hero?.cta || "Reservar"}
         </a>
       </div>
     </section>
 
     <!-- Specialties -->
-    {content.specialties && (
-      <section class="py-20 bg-amber-50">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 class="text-3xl font-serif font-bold text-center text-amber-900 mb-12">Nuestras Especialidades</h2>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {content.specialties.map((s: any) => (
-              <div class="text-center p-8 bg-white rounded-2xl shadow-sm border border-amber-100 hover:shadow-md transition-shadow">
-                <div class="text-5xl mb-4">{s.emoji}</div>
-                <h3 class="text-xl font-serif font-bold text-amber-900 mb-3">{s.name}</h3>
-                <p class="text-gray-600">{s.description}</p>
-              </div>
-            ))}
+    {
+      content.specialties && (
+        <section class="py-20 bg-amber-50">
+          <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-serif font-bold text-center text-amber-900 mb-12">
+              Nuestras Especialidades
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {content.specialties.map((s: any) => (
+                <div class="text-center p-8 bg-white rounded-2xl shadow-sm border border-amber-100 hover:shadow-md transition-shadow">
+                  <div class="text-5xl mb-4">{s.emoji}</div>
+                  <h3 class="text-xl font-serif font-bold text-amber-900 mb-3">
+                    {s.name}
+                  </h3>
+                  <p class="text-gray-600">{s.description}</p>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
-    )}
+        </section>
+      )
+    }
 
     <!-- Reservation CTA -->
     <section class="py-16 bg-amber-800 text-white text-center">
       <div class="max-w-2xl mx-auto px-4">
-        <h2 class="text-3xl font-serif font-bold mb-4">Reserva tu experiencia</h2>
-        <p class="text-amber-200 mb-8">Mesas disponibles de martes a domingo. Eventos especiales con anticipación.</p>
+        <h2 class="text-3xl font-serif font-bold mb-4">
+          Reserva tu experiencia
+        </h2>
+        <p class="text-amber-200 mb-8">
+          Mesas disponibles de martes a domingo. Eventos especiales con
+          anticipación.
+        </p>
         <a
-          href={useQueryParam ? `/contact?tenant=${tenantSlug}` : '/contact'}
+          href={useQueryParam ? `/contact?tenant=${tenantSlug}` : "/contact"}
           class="inline-block bg-white text-amber-800 font-bold py-3 px-8 rounded-full hover:bg-amber-100 transition-colors"
         >
           Hacer Reservación
@@ -72,7 +95,15 @@ const content = pageData.content as any;
       </div>
     </section>
 
-    <Footer config={tenant.config} tenantSlug={tenantSlug} useQueryParam={useQueryParam} />
-    <WhatsAppButton phone={tenant.config.whatsapp} />
+    <Footer
+      config={tenant.config}
+      tenantSlug={tenantSlug}
+      useQueryParam={useQueryParam}
+    />
+    {
+      tenant.config.whatsapp && (
+        <WhatsAppButton phone={tenant.config.whatsapp} />
+      )
+    }
   </div>
 </BaseLayout>

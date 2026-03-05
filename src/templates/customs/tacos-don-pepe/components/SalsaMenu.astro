@@ -10,22 +10,33 @@ interface Props {
 }
 const { salsas } = Astro.props;
 ---
+
 <div class="bg-gray-900 rounded-3xl p-8">
-  <h3 class="text-2xl font-black text-white mb-6 text-center">🌶️ Nuestras Salsas</h3>
+  <h3 class="text-2xl font-black text-white mb-6 text-center">
+    🌶️ Nuestras Salsas
+  </h3>
   <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-    {salsas.map((salsa) => (
-      <div class="bg-gray-800 rounded-2xl p-5 flex items-center gap-4">
-        <div class={`${salsa.color} w-12 h-12 rounded-full flex-shrink-0 shadow-lg`}></div>
-        <div class="flex-1 min-w-0">
-          <h4 class="text-white font-bold">{salsa.name}</h4>
-          <p class="text-gray-400 text-sm truncate">{salsa.description}</p>
-          <div class="flex gap-1 mt-1">
-            {Array.from({ length: 5 }).map((_, i) => (
-              <span class={`text-xs ${i < salsa.heat ? 'text-red-400' : 'text-gray-600'}`}>🌶️</span>
-            ))}
+    {
+      salsas.map((salsa) => (
+        <div class="bg-gray-800 rounded-2xl p-5 flex items-center gap-4">
+          <div
+            class={`${salsa.color} w-12 h-12 rounded-full flex-shrink-0 shadow-lg`}
+          />
+          <div class="flex-1 min-w-0">
+            <h4 class="text-white font-bold">{salsa.name}</h4>
+            <p class="text-gray-400 text-sm truncate">{salsa.description}</p>
+            <div class="flex gap-1 mt-1">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <span
+                  class={`text-xs ${i < salsa.heat ? "text-red-400" : "text-gray-600"}`}
+                >
+                  🌶️
+                </span>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-    ))}
+      ))
+    }
   </div>
 </div>

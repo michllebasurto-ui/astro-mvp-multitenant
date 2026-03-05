@@ -1,11 +1,17 @@
 // Re-export types from the central types module for backward compatibility
-export type { NavLink, TenantConfig, PageData, TenantData, ResolvedPage } from "./types";
+export type {
+  NavLink,
+  TenantConfig,
+  PageData,
+  TenantData,
+  ResolvedPage,
+} from "./types";
 
 import type { TenantData, ResolvedPage } from "./types";
 import { getTenantBySlug, getTenantBySubdomain } from "./tenant-store";
 
 export async function resolveTenant(
-  request: Request
+  request: Request,
 ): Promise<{ tenant: TenantData; tenantSlug: string } | null> {
   const url = new URL(request.url);
 
@@ -33,13 +39,18 @@ export async function resolveTenant(
 
 export async function resolveTenantAndPage(
   request: Request,
-  pagePath: string = "/"
+  pagePath: string = "/",
 ): Promise<ResolvedPage | null> {
   const result = await resolveTenant(request);
   if (!result) return null;
 
   const { tenant, tenantSlug } = result;
-  const normalizedPath = pagePath === "" || pagePath === "/" ? "/" : pagePath.startsWith("/") ? pagePath : `/${pagePath}`;
+  const normalizedPath =
+    pagePath === "" || pagePath === "/"
+      ? "/"
+      : pagePath.startsWith("/")
+        ? pagePath
+        : `/${pagePath}`;
   const page = tenant.pages[normalizedPath];
   if (!page) return null;
 
@@ -49,7 +60,7 @@ export async function resolveTenantAndPage(
 export function buildTenantUrl(
   request: Request,
   tenantSlug: string,
-  path: string
+  path: string,
 ): string {
   const url = new URL(request.url);
   if (url.searchParams.get("tenant")) {

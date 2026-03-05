@@ -1,10 +1,10 @@
 ---
-import BaseLayout from '../../../../layouts/BaseLayout.astro';
-import Navbar from '../../../_shared/Navbar.astro';
-import Footer from '../../../_shared/Footer.astro';
-import WhatsAppButton from '../../../_shared/WhatsAppButton.astro';
-import FoodCards from '../components/FoodCards.astro';
-import type { TenantData, PageData } from '../../../../lib/tenant';
+import BaseLayout from "../../../../layouts/BaseLayout.astro";
+import Navbar from "../../../_shared/Navbar.astro";
+import Footer from "../../../_shared/Footer.astro";
+import WhatsAppButton from "../../../_shared/WhatsAppButton.astro";
+import FoodCards from "../components/FoodCards.astro";
+import type { TenantData, PageData } from "../../../../lib/tenant";
 
 interface Props {
   tenant: TenantData;
@@ -14,27 +14,50 @@ interface Props {
 
 const { tenant, pageData, request } = Astro.props;
 const url = new URL(request.url);
-const useQueryParam = url.searchParams.has('tenant');
-const tenantSlug = url.searchParams.get('tenant') || '';
+const useQueryParam = url.searchParams.has("tenant");
+const tenantSlug = url.searchParams.get("tenant") || "";
 const content = pageData.content as any;
 ---
+
 <BaseLayout title={pageData.meta.title} description={pageData.meta.description}>
   <div class="min-h-screen flex flex-col bg-orange-50">
-    <Navbar config={tenant.config} currentPath="/menu" tenantSlug={tenantSlug} useQueryParam={useQueryParam} />
+    <Navbar
+      config={tenant.config}
+      currentPath="/menu"
+      tenantSlug={tenantSlug}
+      useQueryParam={useQueryParam}
+    />
 
     <main class="flex-1 py-16">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12">
-          <h1 class="text-4xl font-black text-gray-900 mb-2">🍔 Nuestro Menú</h1>
-          <p class="text-gray-600">Las mejores burgers de la ciudad, hechas con amor</p>
+          <h1 class="text-4xl font-black text-gray-900 mb-2">
+            🍔 Nuestro Menú
+          </h1>
+          <p class="text-gray-600">
+            Las mejores burgers de la ciudad, hechas con amor
+          </p>
         </div>
-        {content.items && (
-          <FoodCards items={content.items} primaryColor={tenant.config.primaryColor} />
-        )}
+        {
+          content.items && (
+            <FoodCards
+              items={content.items}
+              primaryColor={tenant.config.primaryColor}
+            />
+          )
+        }
       </div>
     </main>
 
-    <Footer config={tenant.config} tenantSlug={tenantSlug} useQueryParam={useQueryParam} />
-    <WhatsAppButton phone={tenant.config.whatsapp} />
+    <Footer
+      config={tenant.config}
+      tenantSlug={tenantSlug}
+      useQueryParam={useQueryParam}
+    />
+    {
+      tenant.config.whatsapp && (
+        <WhatsAppButton phone={tenant.config.whatsapp} />
+      )
+    }
   </div>
 </BaseLayout>

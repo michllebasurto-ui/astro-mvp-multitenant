@@ -10,14 +10,21 @@ interface Props {
 }
 const { promos } = Astro.props;
 ---
+
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-  {promos.map((promo) => (
-    <div class="relative bg-white rounded-2xl shadow-md p-6 hover:shadow-xl transition-shadow overflow-hidden">
-      <div class={`absolute top-4 right-4 ${promo.color} text-white text-xs font-bold px-3 py-1 rounded-full`}>
-        {promo.badge}
+  {
+    promos.map((promo) => (
+      <div class="relative bg-white rounded-2xl shadow-md p-6 hover:shadow-xl transition-shadow overflow-hidden">
+        <div
+          class={`absolute top-4 right-4 ${promo.color} text-white text-xs font-bold px-3 py-1 rounded-full`}
+        >
+          {promo.badge}
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-3 pr-16">
+          {promo.title}
+        </h3>
+        <p class="text-gray-600 text-sm">{promo.description}</p>
       </div>
-      <h3 class="text-xl font-bold text-gray-900 mb-3 pr-16">{promo.title}</h3>
-      <p class="text-gray-600 text-sm">{promo.description}</p>
-    </div>
-  ))}
+    ))
+  }
 </div>

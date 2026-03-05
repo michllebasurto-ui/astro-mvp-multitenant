@@ -1,0 +1,151 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Navbar from "./Navbar.astro";
+import Footer from "./Footer.astro";
+import type { TenantConfig } from "../../lib/tenant";
+
+interface Props {
+  brandName?: string;
+  primaryColor?: string;
+  homeUrl: string;
+  requestedPage?: string;
+  config?: TenantConfig;
+  tenantSlug?: string;
+  useQueryParam?: boolean;
+}
+
+const {
+  brandName,
+  primaryColor = "#7c3aed",
+  homeUrl,
+  requestedPage,
+  config,
+  tenantSlug = "",
+  useQueryParam = false,
+} = Astro.props;
+
+const hasTenant = !!config;
+const title = hasTenant
+  ? `Página no encontrada - ${brandName}`
+  : "Página no encontrada";
+---
+
+<BaseLayout title={title} description="La página que buscas no existe.">
+  <div class="min-h-screen flex flex-col">
+    {/* Si hay tenant → mostrar su navbar */}
+    {
+      hasTenant && config && (
+        <Navbar
+          config={config}
+          currentPath=""
+          tenantSlug={tenantSlug}
+          useQueryParam={useQueryParam}
+        />
+      )
+    }
+
+    {/* Contenido 404 */}
+    <main class="flex-1 flex items-center justify-center px-4 py-20">
+      <div class="text-center max-w-lg mx-auto">
+        {/* Número 404 grande */}
+        <div class="relative mb-8">
+          <span
+            class="text-[10rem] md:text-[12rem] font-black leading-none select-none opacity-10"
+            style={`color: ${primaryColor}`}
+          >
+            404
+          </span>
+          <div class="absolute inset-0 flex items-center justify-center">
+            <span class="text-6xl">🔍</span>
+          </div>
+        </div>
+
+        {/* Mensaje */}
+        <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          Página no encontrada
+        </h1>
+
+        <p class="text-gray-500 text-lg mb-3">
+          La página <span
+            class="font-mono bg-gray-100 px-2 py-1 rounded text-sm font-semibold text-gray-700"
+            >/{requestedPage}</span
+          > no existe
+          {
+            brandName && (
+              <span>
+                {" "}
+                en <strong class="text-gray-700">{brandName}</strong>
+              </span>
+            )
+          }.
+        </p>
+
+        <p class="text-gray-400 mb-10">
+          Puede que la dirección esté mal escrita o que la página haya sido
+          movida.
+        </p>
+
+        {/* Botón de volver */}
+        <a
+          href={homeUrl}
+          class="inline-flex items-center gap-3 text-white font-bold py-4 px-8 rounded-full text-lg transition-all duration-300 hover:scale-105 hover:shadow-lg shadow-md"
+          style={`background-color: ${primaryColor}`}
+        >
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+          </svg>
+          Volver al Inicio
+        </a>
+
+        {/* Links de navegación del tenant (si tiene) */}
+        {
+          hasTenant && config && config.navbar.links.length > 1 && (
+            <div class="mt-10 pt-8 border-t border-gray-100">
+              <p class="text-sm text-gray-400 mb-4">
+                O visita alguna de estas páginas:
+              </p>
+              <div class="flex flex-wrap justify-center gap-3">
+                {config.navbar.links.map((link) => {
+                  const href =
+                    useQueryParam && tenantSlug
+                      ? link.href === "/"
+                        ? `/?tenant=${tenantSlug}`
+                        : `${link.href}?tenant=${tenantSlug}`
+                      : link.href;
+                  return (
+                    <a
+                      href={href}
+                      class="px-4 py-2 rounded-full text-sm font-medium border border-gray-200 text-gray-600 hover:border-gray-400 hover:text-gray-900 transition-colors"
+                    >
+                      {link.label}
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
+          )
+        }
+      </div>
+    </main>
+
+    {/* Si hay tenant → mostrar su footer */}
+    {
+      hasTenant && config && (
+        <Footer
+          config={config}
+          tenantSlug={tenantSlug}
+          useQueryParam={useQueryParam}
+        />
+      )
+    }
+  </div>
+</BaseLayout>

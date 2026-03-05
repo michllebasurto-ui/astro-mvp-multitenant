@@ -4,47 +4,73 @@ interface Props {
   whatsapp?: string;
   primaryColor?: string;
 }
-const { phone = '', whatsapp = '', primaryColor = '#b45309' } = Astro.props;
+const { phone = "", whatsapp = "", primaryColor = "#b45309" } = Astro.props;
 ---
+
 <div class="bg-amber-50 rounded-2xl p-8 border border-amber-200">
-  <h3 class="text-2xl font-serif font-bold mb-6 text-amber-900">Reservaciones</h3>
-  <p class="text-gray-600 mb-6">Reserva tu mesa con anticipación y disfruta de una experiencia inigualable.</p>
+  <h3 class="text-2xl font-serif font-bold mb-6 text-amber-900">
+    Reservaciones
+  </h3>
+  <p class="text-gray-600 mb-6">
+    Reserva tu mesa con anticipación y disfruta de una experiencia inigualable.
+  </p>
   <div class="space-y-4">
     <div class="flex items-center gap-3 text-gray-700">
       <span class="text-2xl">📞</span>
       <div>
         <p class="text-sm text-gray-500">Teléfono</p>
-        <p class="font-semibold">{phone || 'Consultar'}</p>
+        <p class="font-semibold">{phone || "Consultar"}</p>
       </div>
     </div>
-    {whatsapp && (
-      <a
-        href={`https://wa.me/${whatsapp.replace(/\D/g, '')}`}
-        target="_blank"
-        class="flex items-center gap-3 text-gray-700 hover:opacity-70 transition-opacity"
-      >
-        <span class="text-2xl">💬</span>
-        <div>
-          <p class="text-sm text-gray-500">WhatsApp</p>
-          <p class="font-semibold" style={`color: ${primaryColor}`}>Enviar mensaje</p>
-        </div>
-      </a>
-    )}
+    {
+      whatsapp && (
+        <a
+          href={`https://wa.me/${whatsapp.replace(/\D/g, "")}`}
+          target="_blank"
+          class="flex items-center gap-3 text-gray-700 hover:opacity-70 transition-opacity"
+        >
+          <span class="text-2xl">💬</span>
+          <div>
+            <p class="text-sm text-gray-500">WhatsApp</p>
+            <p class="font-semibold" style={`color: ${primaryColor}`}>
+              Enviar mensaje
+            </p>
+          </div>
+        </a>
+      )
+    }
     <form class="mt-6 space-y-4">
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <input type="text" placeholder="Tu nombre" class="border border-amber-200 rounded-lg px-4 py-3 focus:outline-none focus:border-amber-500 bg-white" />
-        <input type="tel" placeholder="Teléfono" class="border border-amber-200 rounded-lg px-4 py-3 focus:outline-none focus:border-amber-500 bg-white" />
+        <input
+          type="text"
+          placeholder="Tu nombre"
+          class="border border-amber-200 rounded-lg px-4 py-3 focus:outline-none focus:border-amber-500 bg-white"
+        />
+        <input
+          type="tel"
+          placeholder="Teléfono"
+          class="border border-amber-200 rounded-lg px-4 py-3 focus:outline-none focus:border-amber-500 bg-white"
+        />
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <input type="date" class="border border-amber-200 rounded-lg px-4 py-3 focus:outline-none focus:border-amber-500 bg-white text-gray-600" />
-        <select class="border border-amber-200 rounded-lg px-4 py-3 focus:outline-none focus:border-amber-500 bg-white text-gray-600">
+        <input
+          type="date"
+          class="border border-amber-200 rounded-lg px-4 py-3 focus:outline-none focus:border-amber-500 bg-white text-gray-600"
+        />
+        <select
+          class="border border-amber-200 rounded-lg px-4 py-3 focus:outline-none focus:border-amber-500 bg-white text-gray-600"
+        >
           <option>2 personas</option>
           <option>3-4 personas</option>
           <option>5-6 personas</option>
           <option>Más de 6</option>
         </select>
       </div>
-      <button type="submit" class="w-full text-white font-bold py-3 rounded-lg transition-opacity hover:opacity-90" style={`background-color: ${primaryColor}`}>
+      <button
+        type="submit"
+        class="w-full text-white font-bold py-3 rounded-lg transition-opacity hover:opacity-90"
+        style={`background-color: ${primaryColor}`}
+      >
         Solicitar Reservación
       </button>
     </form>

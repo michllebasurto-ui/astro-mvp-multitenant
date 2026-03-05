@@ -1,11 +1,11 @@
 ---
-import BaseLayout from '../../../../layouts/BaseLayout.astro';
-import Navbar from '../../../_shared/Navbar.astro';
-import Footer from '../../../_shared/Footer.astro';
-import WhatsAppButton from '../../../_shared/WhatsAppButton.astro';
-import TacosHero from '../components/TacosHero.astro';
-import SalsaMenu from '../components/SalsaMenu.astro';
-import type { TenantData, PageData } from '../../../../lib/tenant';
+import BaseLayout from "../../../../layouts/BaseLayout.astro";
+import Navbar from "../../../_shared/Navbar.astro";
+import Footer from "../../../_shared/Footer.astro";
+import WhatsAppButton from "../../../_shared/WhatsAppButton.astro";
+import TacosHero from "../components/TacosHero.astro";
+import SalsaMenu from "../components/SalsaMenu.astro";
+import type { TenantData, PageData } from "../../../../lib/tenant";
 
 interface Props {
   tenant: TenantData;
@@ -15,48 +15,64 @@ interface Props {
 
 const { tenant, pageData, request } = Astro.props;
 const url = new URL(request.url);
-const useQueryParam = url.searchParams.has('tenant');
-const tenantSlug = url.searchParams.get('tenant') || '';
+const useQueryParam = url.searchParams.has("tenant");
+const tenantSlug = url.searchParams.get("tenant") || "";
 const content = pageData.content as any;
 ---
+
 <BaseLayout title={pageData.meta.title} description={pageData.meta.description}>
   <div class="min-h-screen flex flex-col">
-    <Navbar config={tenant.config} currentPath="/" tenantSlug={tenantSlug} useQueryParam={useQueryParam} />
+    <Navbar
+      config={tenant.config}
+      currentPath="/"
+      tenantSlug={tenantSlug}
+      useQueryParam={useQueryParam}
+    />
 
     <TacosHero
       headline={content.hero?.headline}
       subheadline={content.hero?.subheadline}
       cta={content.hero?.cta}
-      ctaHref={useQueryParam ? `/sucursales?tenant=${tenantSlug}` : '/sucursales'}
+      ctaHref={useQueryParam
+        ? `/sucursales?tenant=${tenantSlug}`
+        : "/sucursales"}
     />
 
     <!-- Menu Grid -->
-    {content.menu && (
-      <section class="py-16 bg-amber-50">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 class="text-3xl font-black text-gray-900 text-center mb-8">🌮 Nuestros Tacos</h2>
-          <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-12">
-            {content.menu.map((item: any) => (
-              <div class="bg-white rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow text-center border border-amber-100">
-                <div class="text-4xl mb-2">{item.emoji}</div>
-                <h3 class="font-bold text-gray-900 mb-1">{item.name}</h3>
-                <p class="text-green-600 font-black text-lg">{item.price}</p>
-              </div>
-            ))}
-          </div>
+    {
+      content.menu && (
+        <section class="py-16 bg-amber-50">
+          <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-black text-gray-900 text-center mb-8">
+              🌮 Nuestros Tacos
+            </h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-12">
+              {content.menu.map((item: any) => (
+                <div class="bg-white rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow text-center border border-amber-100">
+                  <div class="text-4xl mb-2">{item.emoji}</div>
+                  <h3 class="font-bold text-gray-900 mb-1">{item.name}</h3>
+                  <p class="text-green-600 font-black text-lg">{item.price}</p>
+                </div>
+              ))}
+            </div>
 
-          {content.salsas && <SalsaMenu salsas={content.salsas} />}
-        </div>
-      </section>
-    )}
+            {content.salsas && <SalsaMenu salsas={content.salsas} />}
+          </div>
+        </section>
+      )
+    }
 
     <!-- CTA Sucursales -->
     <section class="py-12 bg-red-600 text-white text-center">
       <div class="max-w-2xl mx-auto px-4">
         <h2 class="text-3xl font-black mb-4">¡Visítanos! 📍</h2>
-        <p class="text-red-100 mb-6">3 sucursales en CDMX abiertas de martes a domingo.</p>
+        <p class="text-red-100 mb-6">
+          3 sucursales en CDMX abiertas de martes a domingo.
+        </p>
         <a
-          href={useQueryParam ? `/sucursales?tenant=${tenantSlug}` : '/sucursales'}
+          href={useQueryParam
+            ? `/sucursales?tenant=${tenantSlug}`
+            : "/sucursales"}
           class="inline-block bg-white text-red-600 font-black py-3 px-8 rounded-full hover:bg-red-50 transition-colors"
         >
           Ver Sucursales
@@ -64,7 +80,15 @@ const content = pageData.content as any;
       </div>
     </section>
 
-    <Footer config={tenant.config} tenantSlug={tenantSlug} useQueryParam={useQueryParam} />
-    <WhatsAppButton phone={tenant.config.whatsapp} />
+    <Footer
+      config={tenant.config}
+      tenantSlug={tenantSlug}
+      useQueryParam={useQueryParam}
+    />
+    {
+      tenant.config.whatsapp && (
+        <WhatsAppButton phone={tenant.config.whatsapp} />
+      )
+    }
   </div>
 </BaseLayout>

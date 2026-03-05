@@ -1,21 +1,62 @@
 ---
-import { resolveTenantAndPage } from '../lib/tenant';
-import { getTemplateComponent } from '../lib/template-registry';
+import {
+  resolveTenant,
+  resolveTenantAndPage,
+  buildTenantUrl,
+} from "../lib/tenant";
+import { getTemplateComponent } from "../lib/template-registry";
+import NotFoundPage from "../templates/_shared/NotFoundPage.astro";
 
 const { page } = Astro.params;
 const pageSlug = `/${page}`;
 
-const resolved = await resolveTenantAndPage(Astro.request, pageSlug);
+// Resolver tenant y página
+const tenantResult = await resolveTenant(Astro.request);
+const resolved = tenantResult
+  ? await resolveTenantAndPage(Astro.request, pageSlug)
+  : null;
 
-if (!resolved) {
-  return new Response(null, { status: 404, statusText: 'Not Found' });
+// Si hay tenant + página → cargar componente
+let Component: any = null;
+if (resolved) {
+  Component = await getTemplateComponent(
+    resolved.tenant.template,
+    resolved.page.page,
+  );
 }
 
-const { tenant, page: resolvedPage } = resolved;
-const Component = await getTemplateComponent(tenant.template, resolvedPage.page);
+// Determinar si es 404
+const is404 = !tenantResult || !resolved || !Component;
 
-if (!Component) {
-  return new Response(null, { status: 404, statusText: 'Not Found' });
+if (is404) {
+  Astro.response.status = 404;
 }
+
+// Preparar datos para 404 del tenant
+const url = new URL(Astro.request.url);
+const useQueryParam = url.searchParams.has("tenant");
+const tenantSlug = tenantResult?.tenantSlug || "";
+const homeUrl = tenantResult
+  ? buildTenantUrl(Astro.request, tenantSlug, "/")
+  : "/";
 ---
-<Component tenant={tenant} pageData={resolvedPage} request={Astro.request} />
+
+{
+  is404 ? (
+    <NotFoundPage
+      brandName={tenantResult?.tenant.config.brandName}
+      primaryColor={tenantResult?.tenant.config.primaryColor}
+      homeUrl={homeUrl}
+      requestedPage={page}
+      config={tenantResult?.tenant.config}
+      tenantSlug={tenantSlug}
+      useQueryParam={useQueryParam}
+    />
+  ) : (
+    <Component
+      tenant={resolved.tenant}
+      pageData={resolved.page}
+      request={Astro.request}
+    />
+  )
+}

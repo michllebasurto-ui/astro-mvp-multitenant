@@ -1,10 +1,10 @@
 ---
-import BaseLayout from '../../../../layouts/BaseLayout.astro';
-import Navbar from '../../../_shared/Navbar.astro';
-import Footer from '../../../_shared/Footer.astro';
-import WhatsAppButton from '../../../_shared/WhatsAppButton.astro';
-import Reservations from '../components/Reservations.astro';
-import type { TenantData, PageData } from '../../../../lib/tenant';
+import BaseLayout from "../../../../layouts/BaseLayout.astro";
+import Navbar from "../../../_shared/Navbar.astro";
+import Footer from "../../../_shared/Footer.astro";
+import WhatsAppButton from "../../../_shared/WhatsAppButton.astro";
+import Reservations from "../components/Reservations.astro";
+import type { TenantData, PageData } from "../../../../lib/tenant";
 
 interface Props {
   tenant: TenantData;
@@ -14,22 +14,36 @@ interface Props {
 
 const { tenant, pageData, request } = Astro.props;
 const url = new URL(request.url);
-const useQueryParam = url.searchParams.has('tenant');
-const tenantSlug = url.searchParams.get('tenant') || '';
+const useQueryParam = url.searchParams.has("tenant");
+const tenantSlug = url.searchParams.get("tenant") || "";
 const content = pageData.content as any;
 ---
+
 <BaseLayout title={pageData.meta.title} description={pageData.meta.description}>
   <div class="min-h-screen flex flex-col bg-amber-50">
-    <Navbar config={tenant.config} currentPath="/contact" tenantSlug={tenantSlug} useQueryParam={useQueryParam} />
+    <Navbar
+      config={tenant.config}
+      currentPath="/contact"
+      tenantSlug={tenantSlug}
+      useQueryParam={useQueryParam}
+    />
 
     <main class="flex-1 py-16">
       <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 class="text-4xl font-serif font-bold text-amber-900 text-center mb-12">Contacto</h1>
+        <h1
+          class="text-4xl font-serif font-bold text-amber-900 text-center mb-12"
+        >
+          Contacto
+        </h1>
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
           <!-- Info -->
           <div class="space-y-6">
-            <div class="bg-white rounded-2xl p-8 shadow-sm border border-amber-100">
-              <h3 class="text-xl font-serif font-bold text-amber-900 mb-6">Información</h3>
+            <div
+              class="bg-white rounded-2xl p-8 shadow-sm border border-amber-100"
+            >
+              <h3 class="text-xl font-serif font-bold text-amber-900 mb-6">
+                Información
+              </h3>
               <div class="space-y-4">
                 <div class="flex items-start gap-3">
                   <span class="text-2xl mt-0.5">📍</span>
@@ -56,26 +70,44 @@ const content = pageData.content as any;
             </div>
 
             <!-- Hours -->
-            <div class="bg-white rounded-2xl p-8 shadow-sm border border-amber-100">
-              <h3 class="text-xl font-serif font-bold text-amber-900 mb-4">Horarios</h3>
+            <div
+              class="bg-white rounded-2xl p-8 shadow-sm border border-amber-100"
+            >
+              <h3 class="text-xl font-serif font-bold text-amber-900 mb-4">
+                Horarios
+              </h3>
               <div class="space-y-3">
-                {content.hours?.map((h: any) => (
-                  <div class="flex justify-between items-center py-2 border-b border-amber-50 last:border-0">
-                    <span class="text-gray-600">{h.days}</span>
-                    <span class="font-medium text-amber-800">{h.time}</span>
-                  </div>
-                ))}
+                {
+                  content.hours?.map((h: any) => (
+                    <div class="flex justify-between items-center py-2 border-b border-amber-50 last:border-0">
+                      <span class="text-gray-600">{h.days}</span>
+                      <span class="font-medium text-amber-800">{h.time}</span>
+                    </div>
+                  ))
+                }
               </div>
             </div>
           </div>
 
           <!-- Reservations form -->
-          <Reservations phone={content.phone} whatsapp={tenant.config.whatsapp} primaryColor={tenant.config.primaryColor} />
+          <Reservations
+            phone={content.phone}
+            whatsapp={tenant.config.whatsapp}
+            primaryColor={tenant.config.primaryColor}
+          />
         </div>
       </div>
     </main>
 
-    <Footer config={tenant.config} tenantSlug={tenantSlug} useQueryParam={useQueryParam} />
-    <WhatsAppButton phone={tenant.config.whatsapp} />
+    <Footer
+      config={tenant.config}
+      tenantSlug={tenantSlug}
+      useQueryParam={useQueryParam}
+    />
+    {
+      tenant.config.whatsapp && (
+        <WhatsAppButton phone={tenant.config.whatsapp} />
+      )
+    }
   </div>
 </BaseLayout>

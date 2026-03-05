@@ -69,6 +69,10 @@ const content = pageData.content as any;
     </section>
 
     <Footer config={tenant.config} tenantSlug={tenantSlug} useQueryParam={useQueryParam} />
-    <WhatsAppButton phone={tenant.config.whatsapp} />
+    {
+      tenant.config.whatsapp && (
+        <WhatsAppButton phone={tenant.config.whatsapp} />
+      )
+    }
   </div>
 </BaseLayout>
