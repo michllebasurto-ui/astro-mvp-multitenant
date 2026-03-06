@@ -1,15 +1,18 @@
 ---
-import { resolveTenantAndPage } from "../lib/tenant";
+import { resolvePageForTenant } from "../lib/tenant";
 import { getTemplateComponent } from "../lib/template-registry";
 import DefaultHome from "../templates/default/pages/Home.astro";
 
-const resolved = await resolveTenantAndPage(Astro.request, "/");
+const { tenant, tenantSlug } = Astro.locals;
 
+let resolved = null;
 let PageComponent: any = null;
 
-if (resolved) {
-  const { tenant, page } = resolved;
-  PageComponent = await getTemplateComponent(tenant.template, page.page);
+if (tenant && tenantSlug) {
+  resolved = resolvePageForTenant(tenant, tenantSlug, "/");
+  if (resolved) {
+    PageComponent = await getTemplateComponent(tenant.template, resolved.page.page);
+  }
 }
 ---
 

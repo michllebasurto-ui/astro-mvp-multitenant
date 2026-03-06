@@ -56,3 +56,17 @@ export async function getTenantBySubdomain(
   if (!tenant) return null;
   return { tenant, slug };
 }
+
+/**
+ * Clears the tenant cache.
+ * If a slug is provided, only that tenant's cache entry is removed.
+ * Otherwise, the entire cache is cleared.
+ */
+export function clearCache(slug?: string): void {
+  if (slug) {
+    tenantCache.delete(slug);
+  } else {
+    tenantCache.clear();
+    subdomainIndex = null;
+  }
+}

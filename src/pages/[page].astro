@@ -1,6 +1,5 @@
 ---
 import {
-  resolveTenant,
   resolvePageForTenant,
   buildTenantUrl,
 } from "../lib/tenant";
@@ -10,12 +9,12 @@ import NotFoundPage from "../templates/_shared/NotFoundPage.astro";
 const { page } = Astro.params;
 const pageSlug = `/${page}`;
 
-// Resolve tenant ONCE
-const tenantResult = await resolveTenant(Astro.request);
+// Use tenant already resolved by middleware
+const { tenant, tenantSlug: slug } = Astro.locals;
 
 // Resolve page using already-resolved tenant (no second resolveTenant call)
-const resolved = tenantResult
-  ? resolvePageForTenant(tenantResult.tenant, tenantResult.tenantSlug, pageSlug)
+const resolved = tenant && slug
+  ? resolvePageForTenant(tenant, slug, pageSlug)
   : null;
 
 // If tenant + page found → load component
@@ -28,7 +27,7 @@ if (resolved) {
 }
 
 // Determine if 404
-const is404 = !tenantResult || !resolved || !Component;
+const is404 = !tenant || !resolved || !Component;
 
 if (is404) {
   Astro.response.status = 404;
@@ -37,8 +36,8 @@ if (is404) {
 // Prepare data for tenant's 404 page
 const url = new URL(Astro.request.url);
 const useQueryParam = url.searchParams.has("tenant");
-const tenantSlug = tenantResult?.tenantSlug || "";
-const homeUrl = tenantResult
+const tenantSlug = slug || "";
+const homeUrl = tenant
   ? buildTenantUrl(Astro.request, tenantSlug, "/")
   : "/";
 ---
@@ -46,13 +45,14 @@ const homeUrl = tenantResult
 {
   is404 ? (
     <NotFoundPage
-      brandName={tenantResult?.tenant.config.brandName}
-      primaryColor={tenantResult?.tenant.config.primaryColor}
+      brandName={tenant?.config.brandName}
+      primaryColor={tenant?.config.primaryColor}
       homeUrl={homeUrl}
       requestedPage={page}
-      config={tenantResult?.tenant.config}
+      config={tenant?.config}
       tenantSlug={tenantSlug}
       useQueryParam={useQueryParam}
+      tenant={tenant}
     />
   ) : (
     <Component
