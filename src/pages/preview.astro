@@ -1,0 +1,36 @@
+---
+import { getTenantBySlug } from "../lib/tenant-store";
+import { getTemplateComponent } from "../lib/template-registry";
+import PreviewListener from "../components/PreviewListener.astro";
+import DefaultHome from "../templates/default/pages/Home.astro";
+
+const tenantParam = Astro.url.searchParams.get("tenant");
+
+let HomeComponent: any = null;
+let tenantData = null;
+
+if (tenantParam) {
+  tenantData = await getTenantBySlug(tenantParam);
+  if (tenantData) {
+    HomeComponent = await getTemplateComponent(tenantData.template, "Home");
+  }
+}
+---
+
+{
+  HomeComponent && tenantData ? (
+    <>
+      <HomeComponent
+        tenant={tenantData}
+        pageData={tenantData.pages["/"]}
+        request={Astro.request}
+      />
+      <PreviewListener />
+    </>
+  ) : (
+    <>
+      <DefaultHome />
+      <PreviewListener />
+    </>
+  )
+}

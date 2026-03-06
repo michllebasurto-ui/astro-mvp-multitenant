@@ -2,7 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Navbar from "./Navbar.astro";
 import Footer from "./Footer.astro";
-import type { TenantConfig } from "../../lib/tenant";
+import type { TenantConfig, TenantData } from "../../lib/types";
 
 interface Props {
   brandName?: string;
@@ -12,6 +12,7 @@ interface Props {
   config?: TenantConfig;
   tenantSlug?: string;
   useQueryParam?: boolean;
+  tenant?: TenantData | null;
 }
 
 const {
@@ -22,6 +23,7 @@ const {
   config,
   tenantSlug = "",
   useQueryParam = false,
+  tenant = null,
 } = Astro.props;
 
 const hasTenant = !!config;
@@ -30,7 +32,7 @@ const title = hasTenant
   : "Página no encontrada";
 ---
 
-<BaseLayout title={title} description="La página que buscas no existe." noindex={true}>
+<BaseLayout title={title} description="La página que buscas no existe." noIndex={true} tenant={tenant}>
   <div class="min-h-screen flex flex-col">
     {/* Si hay tenant → mostrar su navbar */}
     {
